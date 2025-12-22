@@ -6,6 +6,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Názov repozitára na GitHube
+  base: '/Hatsune-Miku-Virtual-Universe/',
   plugins: [
     vue(),
     vueDevTools(),
