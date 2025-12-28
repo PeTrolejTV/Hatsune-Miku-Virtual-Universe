@@ -1,0 +1,164 @@
+/* Globálne nastavenia */
+:root {
+	--miku-light: #86cecb;
+	--miku-dark: #137a7f;
+	--miku-gradient: linear-gradient(90deg, #86cecb 0%, #137a7f 100%);
+	--miku-bg-soft: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
+}
+
+/* App.vue štýly */
+#app {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: var(--miku-bg-soft);
+}
+
+.main-content {
+	flex: 1;
+	padding-top: 80px;
+	padding-bottom: 20px;
+}
+
+.footer {
+	margin-top: auto;
+}
+
+/* Prepísanie Bootstrap primárnych tlačidiel a farieb */
+.bg-primary, .btn-primary {
+	background-color: var(--miku-light) !important;
+	border-color: var(--miku-light) !important;
+	color: #fff !important;
+	transition: all 0.3s ease !important;
+}
+
+/* Hover efekt: Pri prejdení myšou sa zmení na tmavú */
+.btn-primary:hover {
+	background-color: var(--miku-dark) !important;
+	border-color: var(--miku-dark) !important;
+	transform: translateY(-2px);
+}
+
+.text-primary {
+	color: var(--miku-light) !important;
+}
+
+/* Outline tlačidlo: default svetlé, hover tmavé */
+.btn-outline-primary {
+	color: var(--miku-light) !important;
+	border-color: var(--miku-light) !important;
+	transition: all 0.3s ease !important;
+}
+
+.btn-outline-primary:hover {
+	background-color: var(--miku-dark) !important;
+	border-color: var(--miku-dark) !important;
+	color: white !important;
+}
+
+/* NavBar.vue štýly */
+.navbar {
+	padding: 1rem 0;
+	background: var(--miku-gradient) !important;
+}
+
+.navbar-brand {
+	font-size: 1.5rem;
+	transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+	transform: scale(1.05);
+}
+
+.nav-link {
+	margin: 0 0.5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+	position: relative;
+	color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Hover na linky v navbare sa zmení na tmavšiu pre lepší kontrast */
+.nav-link:hover {
+	background-color: var(--miku-dark);
+	transform: translateY(-2px);
+	color: #fff !important;
+}
+
+.nav-link.active {
+	background-color: rgba(255, 255, 255, 0.25);
+	font-weight: 600;
+	color: #fff !important;
+}
+
+/* HomeView.vue štýly */
+.hero-section {
+	padding: 4rem 0;
+}
+
+.hero-title {
+	animation: fadeInUp 1s ease;
+}
+
+.hero-image {
+	border-radius: 20px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+	animation: float 3s ease-in-out infinite;
+}
+
+.feature-card {
+	background: #f8f9fa;
+	border-radius: 15px;
+	transition: all 0.3s ease;
+	height: 100%;
+}
+
+.feature-card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	background: white;
+}
+
+.feature-icon {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: white;
+	border-radius: 50%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats sekcia používa svetlejšiu ako základ */
+.stats-section {
+	background: var(--miku-light) !important;
+}
+
+.stat-item {
+	padding: 1rem;
+}
+
+/* Animácie */
+@keyframes fadeInUp {
+	from { opacity: 0; transform: translateY(30px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-20px); }
+}
+
+/* Responzivita */
+@media (max-width: 1000px) {
+	.nav-link { margin: 0.25rem 0; }
+}
+
+@media (max-width: 768px) {
+	.hero-section { padding: 2rem 0; }
+	.stat-item h2 { font-size: 2rem; }
+}
