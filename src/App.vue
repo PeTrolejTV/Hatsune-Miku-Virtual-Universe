@@ -28,36 +28,8 @@ import NavBar from './components/NavBar.vue'
 
 export default {
 	name: 'App',
-
 	components: {
 		NavBar
 	}
 }
 </script>
-
-<style>
-#app {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	background: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
-}
-
-.main-content {
-	flex: 1;
-	padding-top: 80px;
-	padding-bottom: 20px;
-}
-
-.footer {
-	margin-top: auto;
-}
-
-.fade-enter-active, .fade-leave-active {
-	transition: opacity 0.3s;
-}
-
-.fade-enter-from, .fade-leave-to {
-	opacity: 0;
-}
-</style>
