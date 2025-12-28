@@ -1,5 +1,5 @@
 <template>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
 		<div class="container">
 			<RouterLink to="/" class="navbar-brand d-flex align-items-center">
 				<i class="bi bi-music-note-list me-2 fs-4"></i>
@@ -63,53 +63,6 @@
 
 <script>
 export default {
+	name: 'NavBar',
 }
 </script>
-
-<style scoped>
-.navbar {
-	padding: 1rem 0;
-	background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%) !important;
-}
-
-.navbar-brand {
-	font-size: 1.5rem;
-	transition: transform 0.3s ease;
-}
-
-.navbar-brand:hover {
-	transform: scale(1.05);
-}
-
-.nav-link {
-	margin: 0 0.5rem;
-	padding: 0.5rem 1rem;
-	border-radius: 8px;
-	transition: all 0.3s ease;
-	position: relative;
-	color: rgba(255, 255, 255, 0.8) !important;
-}
-
-.nav-link:hover {
-	background-color: rgba(255, 255, 255, 0.1);
-	transform: translateY(-2px);
-	color: #fff !important;
-}
-
-.nav-link.active {
-	background-color: rgba(255, 255, 255, 0.2);
-	font-weight: 600;
-	color: #fff !important;
-}
-
-.badge {
-	font-size: 0.65rem;
-	padding: 0.25rem 0.5rem;
-}
-
-@media (max-width: 1000px) {
-	.nav-link {
-		margin: 0.25rem 0;
-	}
-}
-</style>
