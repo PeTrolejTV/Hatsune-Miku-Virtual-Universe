@@ -4,7 +4,7 @@
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
-						<h1 class="display-3 fw-bold mb-3 hero-title">
+						<h1 class="display-2 fw-bold mb-3 hero-title">
 							Welcome to
 							<span class="text-primary">Hatsune Miku</span>
 							Virtual Universe
@@ -116,7 +116,7 @@
 			</div>
 		</section>
 
-		<section class="stats-section py-5 bg-primary text-white">
+		<section class="stats-section py-5 text-white">
 			<div class="container">
 				<div class="row text-center g-4">
 					<div class="col-md-3 col-6">
@@ -168,7 +168,6 @@ export default {
 	
 	data() {
 		return {
-			// Štatistiky zobrazené na stránke
 			stats: {
 				concerts: 50,
 				products: 200,
@@ -179,96 +178,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-.hero-section {
-	padding: 4rem 0;
-	background: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
-}
-
-.hero-title {
-	animation: fadeInUp 1s ease;
-}
-
-.hero-image {
-	border-radius: 20px;
-	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-	animation: float 3s ease-in-out infinite;
-}
-
-.features-section {
-	background: white;
-}
-
-.feature-card {
-	background: #f8f9fa;
-	border-radius: 15px;
-	transition: all 0.3s ease;
-	height: 100%;
-}
-
-.feature-card:hover {
-	transform: translateY(-10px);
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-	background: white;
-}
-
-.feature-icon {
-	width: 80px;
-	height: 80px;
-	margin: 0 auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: white;
-	border-radius: 50%;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.stats-section {
-	background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%) !important;
-}
-
-.stat-item {
-	padding: 1rem;
-}
-
-.cta-section {
-	background: #f8f9fa;
-}
-
-/* Animácie */
-@keyframes fadeInUp {
-	from {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes float {
-	0%, 100% {
-		transform: translateY(0);
-	}
-	50% {
-		transform: translateY(-20px);
-	}
-}
-
-@media (max-width: 768px) {
-	.hero-section {
-		padding: 2rem 0;
-	}
-	
-	.display-3 {
-		font-size: 2rem;
-	}
-	
-	.stat-item h2 {
-		font-size: 2rem;
-	}
-}
-</style>
