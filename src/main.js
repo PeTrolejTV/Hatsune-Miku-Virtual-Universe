@@ -8,6 +8,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import App from './App.vue'
 import router from './router'
 
+// Vlastné globálne štýly
+import './main.css'
+
 const app = createApp(App)
 
 app.use(createPinia())
