@@ -27,11 +27,9 @@
 					<h4 class="mt-4 mb-2">Costume Lore & Details</h4>
 					<p class="text-secondary detail-text">
 						{{ outfit.description }}
-						<span v-if="!outfit.longLore">
-							This stunning costume from {{ outfit.year }} was designed for the {{ outfit.event }}. 
-							The design captures the energy of the performance using vibrant tones of {{ getRandomColor() }}.
-						</span>
-						<span v-else>{{ outfit.longLore }}</span>
+					</p>
+					<p v-if="outfit.longLore" class="text-secondary detail-text mt-3">
+						{{ outfit.longLore }}
 					</p>
 
 					<div class="mt-4">
@@ -56,11 +54,13 @@ export default {
 		outfit: { type: Object, required: true }
 	},
 	emits: ['close'],
+	mounted() {
+		document.body.style.overflow = 'hidden';
+	},
+	unmounted() {
+		document.body.style.overflow = '';
+	},
 	methods: {
-		getRandomColor() {
-			const colors = ['Turquoise', 'Pink', 'Neon Blue', 'Silver', 'Gold']
-			return colors[Math.floor(Math.random() * colors.length)]
-		},
 		closeModal() { this.$emit('close') }
 	}
 }
