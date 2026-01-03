@@ -3,7 +3,7 @@
 		<section class="hero-section">
 			<div class="container">
 				<div class="row align-items-center">
-					<div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+					<div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0 pb-5">
 						<h1 class="display-2 fw-bold mb-3 hero-title">
 							Welcome to
 							<span class="text-primary">Hatsune Miku</span>
@@ -178,3 +178,4 @@ export default {
 	}
 }
 </script>
+
