@@ -1,370 +1,707 @@
-/* Globálne nastavenia a premenné */
+/* ============================================
+   GLOBAL VARIABLES & BASE STYLES
+   ============================================ */
+
 :root {
-    --miku-light: #86cecb;
-    --miku-dark: #137a7f;
-    --miku-gradient: linear-gradient(90deg, #86cecb 0%, #137a7f 100%);
-    --miku-bg-soft: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
-    --miku-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    --miku-shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.2);
+	--miku-light: #86cecb;
+	--miku-dark: #137a7f;
+	--miku-gradient: linear-gradient(90deg, #86cecb 0%, #137a7f 100%);
+	--miku-bg-soft: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
+	--miku-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	--miku-shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
-/* Základné nastavenie aplikácie */
 #app {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: var(--miku-bg-soft);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: var(--miku-bg-soft);
 }
 
 .main-content {
-    flex: 1;
-    padding-top: 80px;
-    padding-bottom: 20px;
+	flex: 1;
+	padding-top: 80px;
+	padding-bottom: 20px;
 }
 
 .footer {
-    margin-top: auto;
+	margin-top: auto;
 }
 
-/* Bootstrap Prepísania (Tlačidlá a texty) */
+/* ============================================
+   BOOTSTRAP OVERRIDES
+   ============================================ */
+
 .bg-primary, .btn-primary {
-    background-color: var(--miku-light) !important;
-    border-color: var(--miku-light) !important;
-    color: #fff !important;
-    transition: all 0.3s ease !important;
+	background-color: var(--miku-light) !important;
+	border-color: var(--miku-light) !important;
+	color: #fff !important;
+	transition: all 0.3s ease !important;
 }
 
 .btn-primary:hover {
-    background-color: var(--miku-dark) !important;
-    border-color: var(--miku-dark) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(19, 122, 127, 0.3);
+	background-color: var(--miku-dark) !important;
+	border-color: var(--miku-dark) !important;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(19, 122, 127, 0.3);
 }
 
 .text-primary {
-    color: var(--miku-light) !important;
+	color: var(--miku-light) !important;
 }
 
 .btn-outline-primary {
-    color: var(--miku-light) !important;
-    border-color: var(--miku-light) !important;
-    transition: all 0.3s ease !important;
+	color: var(--miku-light) !important;
+	border-color: var(--miku-light) !important;
+	transition: all 0.3s ease !important;
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--miku-dark) !important;
-    border-color: var(--miku-dark) !important;
-    color: white !important;
+	background-color: var(--miku-dark) !important;
+	border-color: var(--miku-dark) !important;
+	color: white !important;
 }
 
-/* NavBar.vue štýly */
+/* ============================================
+   NAVBAR STYLES
+   ============================================ */
+
 .navbar {
-    padding: 1rem 0;
-    background: var(--miku-gradient) !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+	padding: 1rem 0;
+	background: var(--miku-gradient) !important;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
+	font-size: 1.5rem;
+	transition: transform 0.3s ease;
 }
 
 .navbar-brand:hover {
-    transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .nav-link {
-    margin: 0 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    position: relative;
-    color: rgba(255, 255, 255, 0.9) !important;
+	margin: 0 0.5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+	position: relative;
+	color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .nav-link:hover {
-    background-color: var(--miku-dark);
-    transform: translateY(-2px);
-    color: #fff !important;
+	background-color: var(--miku-dark);
+	transform: translateY(-2px);
+	color: #fff !important;
 }
 
 .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.25);
-    font-weight: 600;
-    color: #fff !important;
+	background-color: rgba(255, 255, 255, 0.25);
+	font-weight: 600;
+	color: #fff !important;
 }
 
-/* HomeView.vue štýly */
+/* ============================================
+   HOMEVIEW STYLES
+   ============================================ */
+
 .hero-section {
-    padding: 4rem 0;
+	padding: 4rem 0;
 }
 
 .hero-title {
-    animation: fadeInUp 1s ease;
+	animation: fadeInUp 1s ease;
 }
 
 .hero-image {
-    border-radius: 20px;
-    box-shadow: var(--miku-shadow-strong);
-    animation: float 3s ease-in-out infinite;
+	border-radius: 20px;
+	box-shadow: var(--miku-shadow-strong);
+	animation: float 3s ease-in-out infinite;
 }
 
 .feature-card {
-    background: #f8f9fa;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-    height: 100%;
+	background: #f8f9fa;
+	border-radius: 15px;
+	transition: all 0.3s ease;
+	height: 100%;
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--miku-shadow);
-    background: white;
+	transform: translateY(-10px);
+	box-shadow: var(--miku-shadow);
+	background: white;
 }
 
 .feature-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: white;
+	border-radius: 50%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .stats-section {
-    background: var(--miku-light) !important;
+	background: var(--miku-light) !important;
 }
 
 .stat-item {
-    padding: 1rem;
+	padding: 1rem;
 }
 
-/* GalleryView.vue štýly */
+/* ============================================
+   GALLERYVIEW & OUTFIT STYLES
+   ============================================ */
+
 .gallery-view {
-    min-height: 100vh;
+	min-height: 100vh;
 }
 
-/* OutfitCard.vue štýly */
 .outfit-card {
-    border-radius: 15px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
+	border-radius: 15px;
+	overflow: hidden;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	background: white;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
 }
 
 .outfit-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--miku-shadow);
+	transform: translateY(-8px);
+	box-shadow: var(--miku-shadow);
 }
 
 .outfit-image-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 125%; /* Pomer strán 4:5 */
-    overflow: hidden;
-    background-color: #fcfcfc; 
+	position: relative;
+	width: 100%;
+	padding-top: 125%;
+	overflow: hidden;
+	background-color: #fcfcfc;
 }
 
 .outfit-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Zabezpečí, že obrázok nebude orezaný */
-    padding: 12px; /* Jemný odstup od okrajov karty */
-    transition: transform 0.5s ease;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	padding: 12px;
+	transition: transform 0.5s ease;
 }
 
 .outfit-card:hover .outfit-image {
-    transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .outfit-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(19, 122, 127, 0.85); /* miku-dark s opacitou */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(19, 122, 127, 0.85);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.3s ease;
 }
 
 .outfit-card:hover .outfit-overlay {
-    opacity: 1;
+	opacity: 1;
 }
 
 .overlay-content {
-    text-align: center;
-    padding: 1rem;
+	text-align: center;
+	padding: 1rem;
 }
 
 .outfit-info {
-    padding: 1rem;
-    background: white;
-    z-index: 2;
+	padding: 1rem;
+	background: white;
+	z-index: 2;
 }
 
 .outfit-name {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5rem;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 0.5rem;
 }
 
 .outfit-event {
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
+	font-size: 0.85rem;
+	margin-bottom: 0.5rem;
 }
 
 .outfit-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
 }
 
 .outfit-tags .badge {
-    font-size: 0.7rem;
-    font-weight: 500;
+	font-size: 0.7rem;
+	font-weight: 500;
 }
 
-/* OutfitDetailModal.vue štýly */
 .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    backdrop-filter: blur(5px);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.85);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+	backdrop-filter: blur(5px);
+	overflow: hidden;
+	padding: 20px;
 }
 
 .outfit-modal {
-    background: #ffffff;
-    border-radius: 15px;
-    width: 900px;
-    max-width: 95%;
-    height: 600px;
-    max-height: 95%;
-    box-shadow: var(--miku-shadow-strong);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-    animation: fadeInUp 0.4s ease;
+	background: #ffffff;
+	border-radius: 15px;
+	width: 900px;
+	max-width: 95%;
+	max-height: calc(100vh - 40px);
+	box-shadow: var(--miku-shadow-strong);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	position: relative;
+	animation: fadeInUp 0.4s ease;
+	margin: auto;
 }
 
 .outfit-modal-header {
-    flex-shrink: 0;
-    padding: 1rem 1.5rem 0 1.5rem;
-    display: flex;
-    justify-content: flex-end;
+	flex-shrink: 0;
+	padding: 1rem 1.5rem 0 1.5rem;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .modal-content-inner {
-    flex: 1;
-    display: flex;
-    gap: 2rem;
-    overflow: hidden;
+	flex: 1;
+	display: flex;
+	gap: 2rem;
+	overflow: hidden;
+	min-height: 0;
 }
 
 .modal-image-col {
-    flex: 0 0 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 1.5rem;
+	flex: 0 0 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 1.5rem;
+	min-height: 0;
 }
 
 .outfit-image-full {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Celý obrázok v modale */
-    border-radius: 10px;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	border-radius: 10px;
 }
 
 .modal-info-col {
-    flex: 1;
-    padding-right: 2rem;
-    overflow-y: auto;
+	flex: 1;
+	padding-right: 2rem;
+	padding-bottom: 2rem;
+	overflow-y: auto;
+	overflow-x: hidden;
+	min-height: 0;
 }
 
-/* Štýlovanie scrollbaru v modale pre lepší vizuál */
 .modal-info-col::-webkit-scrollbar {
-    width: 6px;
+	width: 6px;
 }
+
 .modal-info-col::-webkit-scrollbar-thumb {
-    background: var(--miku-light);
-    border-radius: 10px;
+	background: var(--miku-light);
+	border-radius: 10px;
 }
 
 .outfit-title {
-    color: var(--miku-dark); /* Zjednotené na tmavšiu pre čitateľnosť */
-    word-break: break-word;
+	color: var(--miku-dark);
+	word-break: break-word;
 }
 
 .detail-text {
-    line-height: 1.6;
+	line-height: 1.6;
 }
 
-/* Animácie */
+/* ============================================
+	CONCERTS VIEW STYLES
+	============================================ */
+
+.concerts-view {
+	min-height: 100vh;
+}
+
+.filter-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	align-items: flex-start;
+}
+
+.filter-item {
+	flex: 1 1 auto;
+	min-width: 200px;
+}
+
+.search-field { flex: 1 1 100px; }
+.platform-field { flex: 1 1 100px; }
+.sort-field { flex: 1 1 260px; }
+.price-field { flex: 1.5 1 200px; }
+.switch-field { 
+	flex: 0 1 auto; 
+	min-width: 100px; 
+	text-align: center; 
+}
+
+.miku-slider-container {
+	position: relative;
+	width: 100%;
+	height: 35px;
+	margin-top: 10px;
+}
+
+.slider-track {
+	position: absolute;
+	width: 100%;
+	height: 6px;
+	background-color: #e9ecef;
+	border-radius: 3px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.slider-range {
+	position: absolute;
+	height: 6px;
+	background-color: var(--miku-light);
+	border-radius: 3px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1;
+}
+
+.miku-range {
+	position: absolute;
+	width: 100%;
+	background: none;
+	pointer-events: none;
+	appearance: none;
+	top: 50%;
+	transform: translateY(-50%);
+	margin: 0;
+	z-index: 2;
+}
+
+.miku-range::-webkit-slider-thumb {
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background: var(--miku-light);
+	border: 3px solid white;
+	box-shadow: 0 0 5px rgba(0,0,0,0.2);
+	cursor: pointer;
+	pointer-events: auto;
+	appearance: none;
+	position: relative;
+	margin-top: -2px;
+}
+
+.miku-range::-moz-range-thumb {
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background: var(--miku-dark);
+	border: 3px solid white;
+	box-shadow: 0 0 5px rgba(0,0,0,0.2);
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.btn-miku-active {
+	background-color: var(--miku-dark) !important;
+	color: white !important;
+	border-color: var(--miku-dark) !important;
+}
+
+.text-miku-teal {
+	color: var(--miku-dark);
+}
+
+.custom-miku-switch.form-check-input:checked {
+	background-color: var(--miku-light) !important;
+	border-color: var(--miku-light) !important;
+}
+
+.custom-miku-switch.form-check-input:focus {
+	box-shadow: 0 0 0 0.25rem rgba(134, 206, 203, 0.25) !important;
+	border-color: var(--miku-light) !important;
+}
+
+.custom-miku-switch.form-check-input {
+	cursor: pointer;
+}
+
+.custom-miku-switch.form-check-input:not(:checked) {
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2337aba7'/%3e%3c/svg%3e") !important;
+}
+
+/* ============================================
+	CONCERT CARD STYLES
+	============================================ */
+
+.concert-card {
+	border: none;
+	border-radius: 15px;
+	overflow: hidden;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.concert-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.concert-card .card-img-top {
+	height: 200px;
+	object-fit: cover;
+}
+
+.concert-info {
+	font-size: 0.9rem;
+}
+
+.concert-info p {
+	line-height: 1.8;
+}
+
+.btn-favorite {
+	transition: all 0.3s ease;
+	background: white;
+	border-color: var(--miku-light);
+	color: var(--miku-light);
+}
+
+.btn-favorite:hover {
+	background: rgba(134, 206, 203, 0.1);
+	border-color: var(--miku-dark);
+	color: var(--miku-dark);
+	transform: scale(1.05);
+}
+
+.btn-favorite.active {
+	background: var(--miku-light);
+	border-color: var(--miku-light);
+	color: white;
+}
+
+.btn-favorite.active:hover {
+	background: var(--miku-dark);
+	border-color: var(--miku-dark);
+}
+
+/* ============================================
+	CONCERT DETAIL MODAL STYLES
+	============================================ */
+
+.modal.modal-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1050;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	outline: 0;
+	background: rgba(0, 0, 0, 0.85);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: blur(5px);
+	padding: 20px;
+}
+
+.concert-modal-content {
+	background: #ffffff;
+	border-radius: 15px;
+	box-shadow: var(--miku-shadow-strong);
+	overflow: hidden;
+	animation: fadeInUp 0.4s ease;
+	margin: auto;
+	max-height: calc(100vh - 40px);
+	display: flex;
+	flex-direction: column;
+}
+
+.concert-modal-header {
+	display: flex;
+	justify-content: flex-end;
+	padding: 1rem 1.5rem 0 1.5rem;
+	flex-shrink: 0;
+}
+
+.concert-modal-content .modal-body {
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 1.5rem;
+}
+
+.concert-modal-content .modal-body::-webkit-scrollbar {
+	width: 6px;
+}
+
+.concert-modal-content .modal-body::-webkit-scrollbar-thumb {
+	background: var(--miku-light);
+	border-radius: 10px;
+}
+
+.concert-modal-content .modal-footer {
+	flex-shrink: 0;
+}
+
+.modal-body img.modal-image-style {
+	max-height: 400px;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+.quantity-control .input-group {
+	display: flex;
+	flex-wrap: nowrap;
+	max-width: 165px;
+}
+
+.quantity-control .form-control {
+	flex-grow: 1;
+	width: 70px;
+	min-width: 70px;
+	z-index: 1;
+}
+
+.quantity-control .btn-outline-secondary {
+	flex-shrink: 0;
+}
+
+/* ============================================
+	ANIMATIONS
+	============================================ */
+
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-20px);
+	}
 }
 
-/* Responzivita (Zjednotená) */
+/* ============================================
+	RESPONSIVE BREAKPOINTS
+	============================================ */
+
 @media (max-width: 1000px) {
-    .nav-link { margin: 0.25rem 0; }
+	.nav-link {
+		margin: 0.25rem 0;
+	}
 }
 
 @media (max-width: 768px) {
-    .hero-section { padding: 2rem 0; }
-    .stat-item h2 { font-size: 2rem; }
-    
-    .outfit-modal {
-        height: auto;
-        max-height: 95vh;
-    }
-    
-    .modal-content-inner {
-        flex-direction: column;
-        overflow-y: auto;
-        padding: 1.5rem !important;
-        gap: 1.5rem;
-    }
-    
-    .modal-image-col {
-        flex: none;
-        height: 250px;
-        padding-left: 0;
-    }
-    
-    .modal-info-col {
-        padding-right: 0;
-    }
+	.hero-section {
+		padding: 2rem 0;
+	}
+	
+	.stat-item h2 {
+		font-size: 2rem;
+	}
+	
+	.outfit-modal {
+		max-height: calc(100vh - 20px);
+	}
+	
+	.modal-content-inner {
+		flex-direction: column;
+		overflow-y: auto;
+		overflow-x: hidden;
+		padding: 1.5rem !important;
+		gap: 1.5rem;
+	}
+	
+	.modal-image-col {
+		flex: none;
+		height: 250px;
+		padding-left: 0;
+	}
+	
+	.modal-info-col {
+		padding-right: 0;
+		max-height: none;
+	}
+	
+	.display-4 {
+		font-size: 2rem;
+	}
+	
+	.concert-card .card-img-top {
+		height: 150px;
+	}
+	
+	.concert-modal-content .modal-body img.modal-image-style {
+		max-height: 250px;
+	}
 }
 
 @media (max-width: 576px) {
-    .outfit-info { padding: 0.75rem; }
-    .outfit-name { font-size: 0.95rem; }
+	.outfit-info {
+		padding: 0.75rem;
+	}
+	
+	.outfit-name {
+		font-size: 0.95rem;
+	}
+	
+	.concert-card .card-body {
+		padding: 1rem;
+	}
+	
+	.concert-info {
+		font-size: 0.85rem;
+	}
+	
+	.modal-backdrop,
+	.modal.modal-backdrop {
+		padding: 10px;
+	}
+	
+	.outfit-modal,
+	.concert-modal-content {
+		max-height: calc(100vh - 20px);
+	}
 }
