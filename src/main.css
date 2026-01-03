@@ -55,9 +55,8 @@ html {
 }
 
 /* ============================================
-   BOOTSTRAP OVERRIDES
+	BOOTSTRAP OVERRIDES
    ============================================ */
-
 .bg-primary, .btn-primary {
 	background-color: var(--miku-light) !important;
 	border-color: var(--miku-light) !important;
@@ -366,6 +365,46 @@ html {
 
 .detail-text {
 	line-height: 1.6;
+}
+
+/* ============================================
+	FILTER BUTTON STYLES
+	============================================ */
+
+.filter-wrapper {
+	position: relative;
+	padding-top: 4rem !important; 
+}
+
+.btn-reset-filters {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f8f9fa;
+	border: 1px solid #dee2e6;
+	color: var(--miku-dark);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	z-index: 10;
+	padding: 0;
+}
+
+.btn-reset-filters:hover {
+	background-color: var(--miku-light);
+	color: white;
+	transform: rotate(-180deg);
+	border-color: var(--miku-light);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-reset-filters i {
+	font-size: 1.2rem;
+	line-height: 1;
 }
 
 /* ============================================
@@ -732,7 +771,13 @@ html {
 	.concert-modal-content {
 		max-height: calc(100vh - 20px);
 	}
+
+	.filter-wrapper {
+		padding-top: 3.5rem !important;
+	}
+	
+	.btn-reset-filters {
+		top: 12px;
+		right: 12px;
+	}
 }
-
-
-
