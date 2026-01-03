@@ -141,8 +141,6 @@ html {
 }
 
 .hero-image {
-	border-radius: 20px;
-	box-shadow: var(--miku-shadow-strong);
 	animation: float 3s ease-in-out infinite;
 }
 
@@ -735,5 +733,6 @@ html {
 		max-height: calc(100vh - 20px);
 	}
 }
+
 
 
