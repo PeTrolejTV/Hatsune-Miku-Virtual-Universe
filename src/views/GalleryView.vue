@@ -8,7 +8,15 @@
 				<p class="lead text-muted">Explore Hatsune Miku's stunning stage outfits</p>
 			</div>
 
-			<div class="filter-wrapper mb-5 p-4 bg-white rounded-4 shadow-sm border">
+			<div class="filter-wrapper mb-5 p-4 bg-white rounded-4 shadow-sm border position-relative">
+				<button 
+					@click="resetFilters" 
+					class="btn btn-reset-filters" 
+					title="Reset all filters"
+				>
+					<i class="bi bi-arrow-counterclockwise"></i>
+				</button>
+				
 				<div class="filter-item search-field">
 					<label class="form-label small fw-bold text-muted">Search Outfits</label>
 					<div class="input-group">
