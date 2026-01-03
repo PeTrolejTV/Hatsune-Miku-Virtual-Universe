@@ -1,15 +1,13 @@
 <template>
 	<div id="app">
 		<NavBar />
-
 		<main class="main-content">
 			<router-view v-slot="{ Component }">
-				<transition name="fade" mode="out-in">
+				<transition name="fade">
 					<component :is="Component" />
 				</transition>
 			</router-view>
 		</main>
-
 		<footer class="footer mt-5 py-4 bg-dark text-white">
 			<div class="container text-center">
 				<p class="mb-0">
