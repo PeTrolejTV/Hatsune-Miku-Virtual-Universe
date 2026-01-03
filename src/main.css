@@ -1,5 +1,5 @@
 /* ============================================
-   GLOBAL VARIABLES & BASE STYLES
+	GLOBAL VARIABLES & BASE STYLES
    ============================================ */
 
 :root {
@@ -9,6 +9,10 @@
 	--miku-bg-soft: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
 	--miku-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 	--miku-shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+html {
+	scroll-behavior: auto;
 }
 
 #app {
@@ -22,10 +26,32 @@
 	flex: 1;
 	padding-top: 80px;
 	padding-bottom: 20px;
+	display: flex;
+	flex-direction: column;
 }
 
 .footer {
 	margin-top: auto;
+	flex-shrink: 0;
+}
+
+/* ============================================
+	VUE ROUTER TRANSITIONS
+   ============================================ */
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.15s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+	opacity: 1;
 }
 
 /* ============================================
@@ -709,4 +735,5 @@
 		max-height: calc(100vh - 20px);
 	}
 }
+
 
