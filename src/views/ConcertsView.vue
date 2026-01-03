@@ -11,7 +11,7 @@
 				</p>
 			</div>
 			
-			<div class="filter-wrapper mb-5 p-3 bg-white rounded-4 shadow-sm border">
+			<div class="filter-wrapper mb-5 p-4 bg-white rounded-4 shadow-sm border">
 				<div class="filter-item search-field">
 					<label class="form-label small fw-bold text-muted">Search Concerts</label>
 					<div class="input-group">
@@ -281,3 +281,4 @@ export default {
 	}
 }
 </script>
+
