@@ -1,7 +1,7 @@
 <template>
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
 		<div class="container">
-			<a href="/" class="navbar-brand d-flex align-items-center" @click.prevent="navigate('/')">
+			<a href="/" class="navbar-brand d-flex align-items-center ps-3" @click.prevent="navigate('/')">
 				<i class="bi bi-music-note-list me-2 fs-4"></i>
 				<span class="fw-bold">Miku Universe</span>
 			</a>
