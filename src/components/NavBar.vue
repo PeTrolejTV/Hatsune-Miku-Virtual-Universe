@@ -5,7 +5,6 @@
 				<i class="bi bi-music-note-list me-2 fs-4"></i>
 				<span class="fw-bold">Miku Universe</span>
 			</RouterLink>
-
 			<button
 				class="navbar-toggler"
 				type="button"
@@ -17,41 +16,35 @@
 			>
 				<span class="navbar-toggler-icon"></span>
 			</button>
-
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						<RouterLink to="/" class="nav-link" active-class="active">
+						<RouterLink to="/" class="nav-link" active-class="active" @click="closeNavbar">
 							<i class="bi bi-house-door me-1"></i>Home
 						</RouterLink>
 					</li>
-
 					<li class="nav-item">
-						<RouterLink to="/gallery" class="nav-link" active-class="active">
+						<RouterLink to="/gallery" class="nav-link" active-class="active" @click="closeNavbar">
 							<i class="bi bi-images me-1"></i>Gallery
 						</RouterLink>
 					</li>
-
 					<li class="nav-item">
-						<RouterLink to="/concerts" class="nav-link" active-class="active">
+						<RouterLink to="/concerts" class="nav-link" active-class="active" @click="closeNavbar">
 							<i class="bi bi-calendar-event me-1"></i>Concerts
 						</RouterLink>
 					</li>
-
 					<li class="nav-item">
-						<RouterLink to="/merch" class="nav-link" active-class="active">
+						<RouterLink to="/merch" class="nav-link" active-class="active" @click="closeNavbar">
 							<i class="bi bi-shop me-1"></i>Merch
 						</RouterLink>
 					</li>
-
 					<li class="nav-item">
-						<RouterLink to="/wishlist" class="nav-link position-relative" active-class="active">
+						<RouterLink to="/wishlist" class="nav-link position-relative" active-class="active" @click="closeNavbar">
 							<i class="bi bi-heart me-1"></i>Wishlist
 						</RouterLink>
 					</li>
-
 					<li class="nav-item">
-						<RouterLink to="/cart" class="nav-link position-relative" active-class="active">
+						<RouterLink to="/cart" class="nav-link position-relative" active-class="active" @click="closeNavbar">
 							<i class="bi bi-cart me-1"></i>Cart
 						</RouterLink>
 					</li>
@@ -64,5 +57,16 @@
 <script>
 export default {
 	name: 'NavBar',
+	methods: {
+		closeNavbar() {
+			const navbarCollapse = document.getElementById('navbarNav')
+			if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+				const toggleButton = document.querySelector('.navbar-toggler')
+				if (toggleButton) {
+					toggleButton.click()
+				}
+			}
+		}
+	}
 }
 </script>
