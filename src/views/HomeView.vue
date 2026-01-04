@@ -41,42 +41,7 @@
 				<h2 class="text-center mb-5">What We Offer</h2>
 				
 				<div class="row g-4">
-					<div class="col-md-4">
-						<div class="feature-card text-center p-4">
-							<div class="feature-icon mb-3">
-								<i class="bi bi-music-note-list display-4 text-primary"></i>
-							</div>
-							<h4>Virtual Concerts</h4>
-							<p class="text-muted">
-								Experience immersive virtual concerts from anywhere in the world
-							</p>
-						</div>
-					</div>
-					
-					<div class="col-md-4">
-						<div class="feature-card text-center p-4">
-							<div class="feature-icon mb-3">
-								<i class="bi bi-images display-4 text-primary"></i>
-							</div>
-							<h4>Outfit Gallery</h4>
-							<p class="text-muted">
-								Browse through stunning stage outfits and costumes
-							</p>
-						</div>
-					</div>
-					
-					<div class="col-md-4">
-						<div class="feature-card text-center p-4">
-							<div class="feature-icon mb-3">
-								<i class="bi bi-bag-heart display-4 text-primary"></i>
-							</div>
-							<h4>Exclusive Merch</h4>
-							<p class="text-muted">
-								Shop official merchandise and limited edition items
-							</p>
-						</div>
-					</div>
-					
+
 					<div class="col-md-4">
 						<div class="feature-card text-center p-4">
 							<div class="feature-icon mb-3">
@@ -88,7 +53,19 @@
 							</p>
 						</div>
 					</div>
-					
+
+					<div class="col-md-4">
+						<div class="feature-card text-center p-4">
+							<div class="feature-icon mb-3">
+								<i class="bi bi-images display-4 text-primary"></i>
+							</div>
+							<h4>Outfit Gallery</h4>
+							<p class="text-muted">
+								Browse through stunning stage outfits and costumes
+							</p>
+						</div>
+					</div>
+
 					<div class="col-md-4">
 						<div class="feature-card text-center p-4">
 							<div class="feature-icon mb-3">
@@ -100,7 +77,31 @@
 							</p>
 						</div>
 					</div>
-					
+
+					<div class="col-md-4">
+						<div class="feature-card text-center p-4">
+							<div class="feature-icon mb-3">
+								<i class="bi bi-music-note-list display-4 text-primary"></i>
+							</div>
+							<h4>Virtual Concerts</h4>
+							<p class="text-muted">
+								Experience immersive virtual concerts from anywhere in the world
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="feature-card text-center p-4">
+							<div class="feature-icon mb-3">
+								<i class="bi bi-bag-heart display-4 text-primary"></i>
+							</div>
+							<h4>Exclusive Merch</h4>
+							<p class="text-muted">
+								Shop official merchandise and limited edition items
+							</p>
+						</div>
+					</div>
+
 					<div class="col-md-4">
 						<div class="feature-card text-center p-4">
 							<div class="feature-icon mb-3">
@@ -112,6 +113,7 @@
 							</p>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</section>
@@ -178,4 +180,3 @@ export default {
 	}
 }
 </script>
-
