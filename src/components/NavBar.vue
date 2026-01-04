@@ -40,11 +40,7 @@ export default {
 	},
 	methods: {
 		navigate(path) {
-			if (this.$route.path === path) {
-				window.scrollTo({ top: 0, behavior: 'smooth' });
-			} else {
-				this.$router.push(path);
-			}
+			this.$router.push(path);
 			this.closeNavbar();
 		},
 		closeNavbar() {
