@@ -1,20 +1,21 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+
 import HomeView from '../views/HomeView.vue'
+import NewsView from '../views/NewsView.vue'
 import GalleryView from '../views/GalleryView.vue'
+import FanArtView from '../views/FanArtView.vue'
 import ConcertsView from '../views/ConcertsView.vue'
 import MerchView from '../views/MerchView.vue'
-import NewsView from '../views/NewsView.vue'
-import FanArtView from '../views/FanArtView.vue'
 import WishlistView from '../views/WishlistView.vue'
 import CartView from '../views/CartView.vue'
 
 const routes = [
 	{ path: '/', name: 'home', component: HomeView, meta: { title: 'Home' } },
-	{ path: '/concerts', name: 'concerts', component: ConcertsView, meta: { title: 'Concerts' } },
-	{ path: '/gallery', name: 'gallery', component: GalleryView, meta: { title: 'Gallery' } },
-	{ path: '/merch', name: 'merch', component: MerchView, meta: { title: 'Merch' } },
 	{ path: '/news', name: 'news', component: NewsView, meta: { title: 'News' } },
+	{ path: '/gallery', name: 'gallery', component: GalleryView, meta: { title: 'Gallery' } },
 	{ path: '/fanart', name: 'fanart', component: FanArtView, meta: { title: 'Fan Art' } },
+	{ path: '/concerts', name: 'concerts', component: ConcertsView, meta: { title: 'Concerts' } },
+	{ path: '/merch', name: 'merch', component: MerchView, meta: { title: 'Merch' } },
 	{ path: '/wishlist', name: 'wishlist', component: WishlistView, meta: { title: 'Wishlist' } },
 	{ path: '/cart', name: 'cart', component: CartView, meta: { title: 'Cart' } }
 ]
