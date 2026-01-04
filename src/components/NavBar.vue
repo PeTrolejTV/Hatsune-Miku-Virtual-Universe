@@ -28,7 +28,9 @@ export default {
 		return {
 			menuItems: [
 				{ name: 'Home', path: '/', icon: 'bi-house-door' },
+				{ name: 'News', path: '/news', icon: 'bi-newspaper' },
 				{ name: 'Gallery', path: '/gallery', icon: 'bi-images' },
+				{ name: 'Fan Art', path: '/fanart', icon: 'bi-palette' },
 				{ name: 'Concerts', path: '/concerts', icon: 'bi-calendar-event' },
 				{ name: 'Merch', path: '/merch', icon: 'bi-shop' },
 				{ name: 'Wishlist', path: '/wishlist', icon: 'bi-heart' },
