@@ -1,82 +1,91 @@
-export const outfitsData = [
-	{
-		id: 1,
-		name: 'Classic Turquoise',
-		year: 2007,
-		event: 'Original Design',
-		image: 'images/outfits/classic-turquoise.png',
-		description: 'The iconic original Miku outfit, featuring the signature turquoise tie, high boots, and arm warmers.',
-		longLore: 'This outfit is the foundation of her digital identity. It was designed by Kei and features a grayscale top and skirt, contrasted sharply by the vibrant turquoise accents.',
-		tags: ['Classic', 'Iconic']
+import { defineStore } from 'pinia';
+
+const initialConcerts = [
+	{ 
+		id: 1, 
+		title: 'Magical Mirai', 
+		date: '2030-12-15', 
+		time: '19:00 JST', 
+		platform: 'YouTube Live', 
+		price: 25.00, 
+		image: 'images/concerts/magical-mirai-2024.jpg', 
+		description: 'Join us for the annual Magical Mirai concert featuring new songs and special guests!', 
+		ticketsRemaining: 45 
 	},
-	{
-		id: 2,
-		name: 'Sakura Blossom',
-		year: 2024,
-		event: 'Spring Concert',
-		image: 'images/outfits/sakura-blossom.png',
-		description: 'Beautiful cherry blossom themed outfit, often associated with the renewal of spring.',
-		longLore: 'The Sakura Blossom design incorporates soft pinks and whites, mimicking falling petals. The dress features flowing chiffon and delicate floral embroidery.',
-		tags: ['Spring', 'Elegant']
+	{ 
+		id: 2, 
+		title: 'Winter Wonder Concert', 
+		date: '2025-12-20', 
+		time: '20:00 EST', 
+		platform: 'VRChat', 
+		price: 15.00, 
+		image: 'images/concerts/winter-wonder-concert.jpg', 
+		description: 'A magical winter-themed concert in VRChat with interactive elements!', 
+		ticketsRemaining: 12 
 	},
-	{
-		id: 3,
-		name: 'Cyber Neon',
-		year: 2024,
-		event: 'Digital Dreams Tour',
-		image: 'images/outfits/cyber-neon.png',
-		description: 'Futuristic neon-lit costume, used for high-energy dance tracks.',
-		longLore: 'Designed for maximum visual impact in dark venues, the Cyber Neon suit is integrated with electroluminescent wiring, which pulses in time with the music.',
-		tags: ['Futuristic', 'Neon']
+	{ 
+		id: 3, 
+		title: 'New Year Celebration', 
+		date: '2024-12-31', 
+		time: '23:00 GMT', 
+		platform: 'Twitch', 
+		price: 20.00, 
+		image: 'images/concerts/new-year-celebration.jpg', 
+		description: 'Ring in the new year with Miku! Special countdown performance.', 
+		ticketsRemaining: 0
 	},
-	{
-		id: 4,
-		name: 'Winter Princess',
-		year: 2024,
-		event: 'Snow Miku',
-		image: 'images/outfits/winter-princess.png',
-		description: 'Elegant winter-themed dress, designed annually for the Snow Miku festival.',
-		longLore: 'This version is inspired by ice crystals and royal capes. It features transparent fabric overlays that catch the light like fresh snow.',
-		tags: ['Winter', 'Princess']
+	{ 
+		id: 4, 
+		title: 'Spring Festival Live', 
+		date: '2026-03-21', 
+		time: '18:00 JST', 
+		platform: 'YouTube Live', 
+		price: 25.00, 
+		image: 'images/concerts/spring-festival-live.png', 
+		description: 'Celebrate spring with cherry blossoms and beautiful melodies!', 
+		ticketsRemaining: 0 
 	},
-	{
-		id: 5,
-		name: 'Racing Queen',
-		year: 2024,
-		event: 'Goodsmile Racing',
-		image: 'images/outfits/racing-queen.png',
-		description: 'Sporty racing outfit used as the official mascot costume for the Goodsmile Racing team.',
-		longLore: 'This high-octane outfit features lightweight, aerodynamic materials and checkerboard patterns. It is frequently updated with team sponsors.',
-		tags: ['Sports', 'Cool']
+	{ 
+		id: 5, 
+		title: 'Metaverse Tour', 
+		date: '2026-04-10', 
+		time: '19:30 PST', 
+		platform: 'Metaverse', 
+		price: 30.00, 
+		image: 'images/concerts/metaverse-tour-2025.png', 
+		description: 'Explore the metaverse with Miku in this groundbreaking virtual tour!', 
+		ticketsRemaining: 80 
 	},
-	{
-		id: 6,
-		name: 'Gothic Lolita',
-		year: 2023,
-		event: 'Dark Woods Concert',
-		image: 'images/outfits/gothic-lolita.png',
-		description: 'Mysterious gothic style featuring dark lace and Victorian-era influence.',
-		longLore: 'Used primarily for rock or orchestral pieces with darker themes. It includes multiple layers of black lace and intricate silver jewelry.',
-		tags: ['Gothic', 'Dark']
-	},
-	{
-		id: 7,
-		name: 'Summer Breeze',
-		year: 2024,
-		event: 'Beach Festival',
-		image: 'images/outfits/summer-breeze.png',
-		description: 'Light and breezy summer wear, perfect for outdoor festivals and hot weather.',
-		longLore: 'The Summer Breeze design minimizes layers. It features a sundress style with marine blue accents and clear plastic accessories.',
-		tags: ['Summer', 'Casual']
-	},
-	{
-		id: 8,
-		name: 'Magical Girl',
-		year: 2024,
-		event: 'Anime Expo Special',
-		image: 'images/outfits/magical-girl.png',
-		description: 'Magical girl transformation complete with ribbons and stars, inspired by classic anime.',
-		longLore: 'This playful costume uses bright pastels and oversized ribbons. Inspired by 90s magical girl anime tropes.',
-		tags: ['Magical', 'Cute']
+	{ 
+		id: 6, 
+		title: 'Summer Sonic Special', 
+		date: '2026-07-15', 
+		time: '17:00 JST', 
+		platform: 'YouTube Live', 
+		price: 25.00, 
+		image: 'images/concerts/summer-sonic-special.png', 
+		description: 'Hot summer vibes with energetic performances and fan favorites!', 
+		ticketsRemaining: 15 
 	}
 ];
+
+export const useConcertsStore = defineStore('concerts', {
+	state: () => ({
+		concerts: initialConcerts,
+	}),
+	getters: {
+		allConcerts: (state) => state.concerts,
+		getConcertById: (state) => (id) => state.concerts.find(c => c.id === id)
+	},
+	actions: {
+		updateTicketsRemaining(concertId, amountChange) {
+			const concert = this.concerts.find(c => c.id === concertId);
+			if (concert) {
+				concert.ticketsRemaining += amountChange;
+				if (concert.ticketsRemaining < 0) {
+					concert.ticketsRemaining = 0;
+				}
+			}
+		}
+	}
+});
