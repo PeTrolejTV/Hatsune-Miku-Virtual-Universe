@@ -3,8 +3,8 @@ import { defineStore } from 'pinia';
 const initialConcerts = [
 	{ 
 		id: 1, 
-		title: 'Magical Mirai 2024', 
-		date: '2024-12-15', 
+		title: 'Magical Mirai', 
+		date: '2030-12-15', 
 		time: '19:00 JST', 
 		platform: 'YouTube Live', 
 		price: 25.00, 
@@ -15,7 +15,7 @@ const initialConcerts = [
 	{ 
 		id: 2, 
 		title: 'Winter Wonder Concert', 
-		date: '2024-12-20', 
+		date: '2025-12-20', 
 		time: '20:00 EST', 
 		platform: 'VRChat', 
 		price: 15.00, 
@@ -32,12 +32,12 @@ const initialConcerts = [
 		price: 20.00, 
 		image: 'images/concerts/new-year-celebration.jpg', 
 		description: 'Ring in the new year with Miku! Special countdown performance.', 
-		ticketsRemaining: 20 
+		ticketsRemaining: 0
 	},
 	{ 
 		id: 4, 
 		title: 'Spring Festival Live', 
-		date: '2025-03-21', 
+		date: '2026-03-21', 
 		time: '18:00 JST', 
 		platform: 'YouTube Live', 
 		price: 25.00, 
@@ -47,8 +47,8 @@ const initialConcerts = [
 	},
 	{ 
 		id: 5, 
-		title: 'Metaverse Tour 2025', 
-		date: '2025-04-10', 
+		title: 'Metaverse Tour', 
+		date: '2026-04-10', 
 		time: '19:30 PST', 
 		platform: 'Metaverse', 
 		price: 30.00, 
@@ -59,7 +59,7 @@ const initialConcerts = [
 	{ 
 		id: 6, 
 		title: 'Summer Sonic Special', 
-		date: '2025-07-15', 
+		date: '2026-07-15', 
 		time: '17:00 JST', 
 		platform: 'YouTube Live', 
 		price: 25.00, 
