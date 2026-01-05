@@ -12,7 +12,7 @@
 			<div class="container text-center">
 				<p class="mb-0">
 					<i class="bi bi-music-note-beamed"></i>
-					Hatsune Miku Virtual Concert Portal © 2026
+						Hatsune Miku Virtual Universe © 2026
 					<i class="bi bi-music-note-beamed"></i>
 				</p>
 				<small>Made with ❤️ for Miku fans worldwide</small>
