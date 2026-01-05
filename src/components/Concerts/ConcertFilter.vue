@@ -97,6 +97,16 @@
 						class="form-check-input custom-miku-switch me-2" 
 						type="checkbox" 
 						role="switch"
+						id="hideExpired" 
+						v-model="hideExpired"
+					>
+					<label class="form-check-label small text-muted" for="hideExpired">Hide Expired</label>
+				</div>
+				<div class="form-check form-switch d-flex align-items-center">
+					<input 
+						class="form-check-input custom-miku-switch me-2" 
+						type="checkbox" 
+						role="switch"
 						id="hideSoldOut" 
 						v-model="hideSoldOut"
 					>
@@ -140,6 +150,7 @@ export default {
 			maxPriceLimit: 1000,
 			absMinPrice: 0,
 			absMaxPrice: 1000,
+			hideExpired: true,
 			hideSoldOut: true,
 			showOnlyFavorites: false
 		}
@@ -155,6 +166,16 @@ export default {
 		filteredResults() {
 			let results = [...this.concerts];
 			
+			// 1. Filter Expired (ako prvý krok)
+			if (this.hideExpired) {
+				const now = new Date();
+				results = results.filter(c => {
+					const timePart = c.time ? c.time.split(' ')[0] : '00:00';
+					const concertDateTime = new Date(`${c.date}T${timePart}`);
+					return concertDateTime >= now;
+				});
+			}
+
 			if (this.showOnlyFavorites) {
 				results = results.filter(c => this.favoriteIds.includes(c.id));
 			}
@@ -236,6 +257,7 @@ export default {
 			this.sortOrder = 'desc';
 			this.minPriceLimit = this.absMinPrice;
 			this.maxPriceLimit = this.absMaxPrice;
+			this.hideExpired = true;
 			this.hideSoldOut = true;
 			this.showOnlyFavorites = false;
 		}
