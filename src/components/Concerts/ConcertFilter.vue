@@ -166,7 +166,6 @@ export default {
 		filteredResults() {
 			let results = [...this.concerts];
 			
-			// 1. Filter Expired (ako prvý krok)
 			if (this.hideExpired) {
 				const now = new Date();
 				results = results.filter(c => {
@@ -264,3 +263,4 @@ export default {
 	}
 }
 </script>
+
