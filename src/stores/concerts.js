@@ -8,7 +8,7 @@ const initialConcerts = [
 		time: '19:00 JST', 
 		platform: 'YouTube Live', 
 		price: 25.00, 
-		image: 'images/concerts/magical-mirai-2024.jpg', 
+		image: 'images/concerts/magical-mirai.jpg', 
 		description: 'Join us for the annual Magical Mirai concert featuring new songs and special guests!', 
 		ticketsRemaining: 45 
 	},
@@ -52,7 +52,7 @@ const initialConcerts = [
 		time: '19:30 PST', 
 		platform: 'Metaverse', 
 		price: 30.00, 
-		image: 'images/concerts/metaverse-tour-2025.png', 
+		image: 'images/concerts/metaverse-tour.png', 
 		description: 'Explore the metaverse with Miku in this groundbreaking virtual tour!', 
 		ticketsRemaining: 80 
 	},
