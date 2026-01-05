@@ -724,6 +724,30 @@ html {
 	border-color: var(--miku-dark);
 }
 
+.concert-expired {
+	filter: grayscale(100%);
+	opacity: 0.7;
+	pointer-events: none;
+}
+
+.expired-label {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	background-color: #dc3545;
+	color: white;
+	padding: 0.25rem 0.75rem;
+	font-weight: bold;
+	border-radius: 4px;
+	z-index: 2;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.concert-card {
+	position: relative;
+	transition: transform 0.2s;
+}
+
 /* ============================================
 	CONCERT DETAIL MODAL STYLES
 	============================================ */
