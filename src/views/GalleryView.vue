@@ -58,6 +58,15 @@ export default {
 			selectedOutfit: null
 		}
 	},
+	watch: {
+		selectedOutfit(newVal) {
+			if (newVal) {
+				document.title = `Gallery Outfit - ${newVal.name} | Miku Universe`;
+			} else {
+				document.title = this.$route.meta.title || 'Gallery | Miku Universe';
+			}
+		}
+	},
 	methods: {
 		setFilteredOutfits(results) {
 			this.displayOutfits = results;
