@@ -72,6 +72,15 @@ export default {
 			return useConcertsStore().concerts || [];
 		}
 	},
+	watch: {
+		selectedConcert(newVal) {
+			if (newVal) {
+				document.title = `Concerts - ${newVal.title} | Miku Universe`;
+			} else {
+				document.title = this.$route.meta.title || 'Concerts | Miku Universe';
+			}
+		}
+	},
 	mounted() {
 		this.refreshFavorites();
 	},
