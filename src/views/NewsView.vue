@@ -61,6 +61,15 @@ export default {
 			selectedArticle: null
 		}
 	},
+	watch: {
+		selectedArticle(newVal) {
+			if (newVal) {
+				document.title = `News - ${newVal.title} | Miku Universe`;
+			} else {
+				document.title = this.$route.meta.title || 'News | Miku Universe';
+			}
+		}
+	},
 	methods: {
 		setFilteredArticles(results) {
 			this.displayArticles = results;
