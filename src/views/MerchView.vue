@@ -34,7 +34,7 @@
 			
 			<div v-else class="text-center py-5">
 				<i class="bi bi-search-heart display-1 text-muted opacity-25"></i>
-				<h3 class="mt-3 text-secondary">No products found matching your filters.</h3>
+				<h3 class="mt-3 text-secondary">No products found.</h3>
 			</div>
 		</div>
 		
@@ -109,3 +109,4 @@ export default {
 	}
 }
 </script>
+
