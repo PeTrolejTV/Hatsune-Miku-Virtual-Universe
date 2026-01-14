@@ -1,9 +1,9 @@
 <template>
-	<div class="modal modal-backdrop" @click.self="closeModalAndReset" v-if="concert">
+	<div class="modal modal-backdrop" @click.self="closeAndReset" v-if="concert">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content concert-modal-content">
 				<div class="concert-modal-header">
-					<button class="btn-close btn btn-light" @click="closeModalAndReset">
+					<button class="btn-close btn btn-light" @click="closeAndReset">
 						<i class="bi bi-x-lg"></i>
 					</button>
 				</div>
@@ -23,9 +23,9 @@
 					<p class="mb-3"><strong>Price:</strong> {{ concert.price }}€</p>
 					
 					<div class="mb-4">
-						<p v-if="concert.ticketsRemaining > 0" class="alert alert-success d-inline-flex align-items-center p-2 m-0">
+						<p v-if="remainingCapacity > 0" class="alert alert-success d-inline-flex align-items-center p-2 m-0">
 							<i class="bi bi-person-check-fill me-2"></i>
-							Tickets Remaining:<strong class="ms-2">{{ concert.ticketsRemaining }}</strong>
+							Tickets Remaining:<strong class="ms-2">{{ remainingCapacity }}</strong>
 						</p>
 						<p v-else class="alert alert-danger d-inline-flex align-items-center p-2 m-0">
 							<i class="bi bi-x-circle-fill me-2"></i> 
@@ -33,43 +33,13 @@
 						</p>
 					</div>
 					
-					<div v-if="concert.ticketsRemaining > 0" class="d-flex align-items-center mb-4 quantity-control">
-						<strong class="me-3">Amount:</strong>
-						<div class="input-group">
-							<button 
-								class="btn btn-outline-secondary" 
-								type="button" 
-								@click="decrementAmount"
-								@mousedown="startDecrementing"
-								@touchstart="startDecrementing"
-								@mouseup="stopChanging"
-								@mouseleave="stopChanging"
-								@touchend="stopChanging"
-								:disabled="amount <= 1"
-							>
-								<i class="bi bi-dash"></i>
-							</button>
-							<input 
-								type="text" 
-								class="form-control text-center" 
-								v-model.number="amount"
-								readonly
-							>
-							<button 
-								class="btn btn-outline-secondary" 
-								type="button" 
-								@click="incrementAmount"
-								@mousedown="startIncrementing"
-								@touchstart="startIncrementing"
-								@mouseup="stopChanging"
-								@mouseleave="stopChanging"
-								@touchend="stopChanging"
-								:disabled="amount >= maxAmount || amount >= concert.ticketsRemaining"
-							>
-								<i class="bi bi-plus"></i>
-							</button>
-						</div>
-					</div>
+					<QuantityControl
+						v-if="remainingCapacity > 0"
+						v-model:value="amount"
+						:min="1"
+						:max="maxQuantity"
+						class="mb-4"
+					/>
 					
 					<p class="mb-0">{{ concert.description }}</p>
 				</div>
@@ -78,7 +48,7 @@
 					<button 
 						type="button" 
 						class="btn btn-secondary" 
-						@click="closeModalAndReset"
+						@click="closeAndReset"
 					>
 						Close
 					</button>
@@ -86,9 +56,9 @@
 						type="button" 
 						class="btn btn-primary"
 						@click="addToCartHandler"
-						:disabled="amount < 1 || amount > concert.ticketsRemaining || concert.ticketsRemaining === 0"
+						:disabled="amount < 1 || amount > remainingCapacity || remainingCapacity === 0"
 					>
-						<span v-if="concert.ticketsRemaining > 0">
+						<span v-if="remainingCapacity > 0">
 							<i class="bi bi-cart-plus me-2"></i> Add {{ amount }} ticket(s) to Cart
 						</span>
 						<span v-else>
@@ -102,8 +72,13 @@
 </template>
 
 <script>
+import QuantityControl from '@/components/QuantityControl.vue'
+
 export default {
-	name: 'ConcertDetailModal',
+	name: 'ConcertDetail',
+	components: {
+		QuantityControl
+	},
 	props: {
 		concert: {
 			type: Object,
@@ -113,20 +88,19 @@ export default {
 	emits: ['close', 'add-to-cart'],
 	data() {
 		return {
-			amount: 1,
-			minAmount: 1,
-			maxAmount: 99,
-			intervalId: null,
-			timeoutId: null,
-			isHolding: false
+			amount: 1
+		}
+	},
+	computed: {
+		remainingCapacity() {
+			if (!this.concert) return 0
+			return Math.max(0, this.concert.ticketsRemaining)
+		},
+		maxQuantity() {
+			return Math.min(99, this.remainingCapacity)
 		}
 	},
 	watch: {
-		amount(newAmount) {
-			const effectiveMax = Math.min(this.maxAmount, this.concert ? this.concert.ticketsRemaining : 0)
-			if (newAmount > effectiveMax) this.amount = effectiveMax || 1
-			if (newAmount < this.minAmount) this.amount = this.minAmount
-		},
 		concert(newVal) {
 			if (newVal) this.amount = 1
 		}
@@ -135,7 +109,6 @@ export default {
 		document.body.style.overflow = 'hidden'
 	},
 	beforeUnmount() {
-		this.stopChanging()
 		document.body.style.overflow = ''
 	},
 	methods: {
@@ -147,15 +120,8 @@ export default {
 				day: 'numeric' 
 			})
 		},
-		decrementAmount() {
-			if (this.amount > this.minAmount) this.amount--
-		},
-		incrementAmount() {
-			const effectiveMax = Math.min(this.maxAmount, this.concert.ticketsRemaining)
-			if (this.amount < effectiveMax) this.amount++
-		},
 		addToCartHandler() {
-			if (this.amount > 0 && this.amount <= this.concert.ticketsRemaining) {
+			if (this.amount > 0 && this.amount <= this.remainingCapacity) {
 				this.$emit('add-to-cart', {
 					id: this.concert.id,
 					name: this.concert.title,
@@ -164,37 +130,11 @@ export default {
 					type: 'concert'
 				})
 			}
+			//this.closeAndReset()
 		},
-		closeModalAndReset() {
-			this.stopChanging()
+		closeAndReset() {
 			this.amount = 1
 			this.$emit('close')
-		},
-		startChanging(method) {
-			this.isHolding = true
-			this.timeoutId = setTimeout(() => {
-				this.timeoutId = setTimeout(() => {
-					clearInterval(this.intervalId)
-					this.intervalId = setInterval(method, 50)
-				}, 2500)
-				this.intervalId = setInterval(method, 150)
-			}, 500)
-		},
-		stopChanging() {
-			this.isHolding = false
-			clearTimeout(this.timeoutId)
-			clearInterval(this.intervalId)
-			this.timeoutId = null
-			this.intervalId = null
-			if (window.getSelection) window.getSelection().removeAllRanges()
-		},
-		startIncrementing() {
-			this.stopChanging()
-			this.startChanging(this.incrementAmount)
-		},
-		startDecrementing() {
-			this.stopChanging()
-			this.startChanging(this.decrementAmount)
 		}
 	}
 }
