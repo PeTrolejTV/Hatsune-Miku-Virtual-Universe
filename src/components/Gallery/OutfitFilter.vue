@@ -18,7 +18,7 @@
 					v-model="searchQuery" 
 					type="text" 
 					class="form-control bg-light border-start-0" 
-					placeholder="Original Miku..."
+					placeholder="Search..."
 				>
 			</div>
 		</div>
@@ -100,4 +100,5 @@ export default {
 		}
 	}
 }
+
 </script>
