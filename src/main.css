@@ -57,6 +57,7 @@ html {
 /* ============================================
 	BOOTSTRAP OVERRIDES
    ============================================ */
+
 .bg-primary, .btn-primary {
 	background-color: var(--miku-light) !important;
 	border-color: var(--miku-light) !important;
@@ -568,14 +569,26 @@ html {
 	min-width: 200px;
 }
 
-.search-field { flex: 1 1 100px; }
-.platform-field { flex: 1 1 100px; }
-.sort-field { flex: 1 1 260px; }
-.price-field { flex: 1.5 1 200px; }
-.switch-field { 
-	flex: 0 1 auto; 
-	min-width: 100px; 
-	text-align: center; 
+.search-field {
+	flex: 1 1 100px;
+}
+
+.platform-field {
+	flex: 1 1 100px;
+}
+
+.sort-field {
+	flex: 1 1 260px;
+}
+
+.price-field {
+	flex: 1.5 1 200px;
+}
+
+.switch-field {
+	flex: 0 1 auto;
+	min-width: 100px;
+	text-align: center;
 }
 
 .miku-slider-container {
@@ -679,6 +692,7 @@ html {
 	border-radius: 15px;
 	overflow: hidden;
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	position: relative;
 }
 
 .concert-card:hover {
@@ -743,13 +757,8 @@ html {
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.concert-card {
-	position: relative;
-	transition: transform 0.2s;
-}
-
 /* ============================================
-	CONCERT DETAIL MODAL STYLES
+	CONCERT & PRODUCT DETAIL STYLES
 	============================================ */
 
 .modal.modal-backdrop {
@@ -769,9 +778,10 @@ html {
 	padding: 20px;
 }
 
-.concert-modal-content {
+.concert-modal-content,
+.product-modal-content {
 	background: #ffffff;
-	border-radius: 15px;
+	border-radius: 20px;
 	box-shadow: var(--miku-shadow-strong);
 	overflow: hidden;
 	animation: fadeInUp 0.4s ease;
@@ -781,37 +791,74 @@ html {
 	flex-direction: column;
 }
 
-.concert-modal-header {
+.concert-modal-content .modal-title,
+.product-modal-content .modal-title {
+	font-size: 2.2rem;
+	font-weight: 800;
+	letter-spacing: -0.5px;
+	line-height: 1.2;
+	position: relative;
+	padding-bottom: 12px;
+	margin-top: 5px;
+	background: linear-gradient(45deg, var(--miku-dark), var(--miku-light));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.concert-modal-content .modal-title::after,
+.product-modal-content .modal-title::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 60px;
+	height: 4px;
+	background: var(--miku-light);
+	border-radius: 2px;
+}
+
+.concert-modal-header,
+.product-modal-header {
 	display: flex;
 	justify-content: flex-end;
 	padding: 1rem 1.5rem 0 1.5rem;
 	flex-shrink: 0;
 }
 
-.concert-modal-content .modal-body {
+.concert-modal-content .modal-body,
+.product-modal-content .modal-body {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding: 1.5rem;
 }
 
-.concert-modal-content .modal-body::-webkit-scrollbar {
+.concert-modal-content .modal-body::-webkit-scrollbar,
+.product-modal-content .modal-body::-webkit-scrollbar {
 	width: 6px;
 }
 
-.concert-modal-content .modal-body::-webkit-scrollbar-thumb {
+.concert-modal-content .modal-body::-webkit-scrollbar-thumb,
+.product-modal-content .modal-body::-webkit-scrollbar-thumb {
 	background: var(--miku-light);
 	border-radius: 10px;
 }
 
-.concert-modal-content .modal-footer {
+.concert-modal-content .modal-footer,
+.product-modal-content .modal-footer {
 	flex-shrink: 0;
 }
 
 .modal-body img.modal-image-style {
-	max-height: 400px;
-	width: 100%;
-	object-fit: cover;
+	display: block;
+	max-height: 500px;
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	margin: 0 auto 1.5rem auto;
 	border-radius: 10px;
+	border: 3px solid #f8f9fa;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .quantity-control .input-group {
@@ -829,6 +876,117 @@ html {
 
 .quantity-control .btn-outline-secondary {
 	flex-shrink: 0;
+}
+
+/* ============================================
+	MERCH/PRODUCT STYLES
+	============================================ */
+
+.merch-view {
+	min-height: 100vh;
+}
+
+.product-card {
+	border: none;
+	border-radius: 15px;
+	overflow: hidden;
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.badge-new {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #ff4757;
+	color: white;
+	padding: 5px 12px;
+	border-radius: 20px;
+	font-size: 0.75rem;
+	font-weight: bold;
+	z-index: 10;
+}
+
+.product-card .card-img-top {
+	height: 250px;
+	object-fit: cover;
+	transition: transform 0.3s ease;
+}
+
+.product-card:hover .card-img-top {
+	transform: scale(1.05);
+}
+
+.product-card .btn-favorite {
+	width: 45px;
+	transition: all 0.3s ease;
+	background: white;
+	border-color: var(--miku-light);
+	color: var(--miku-light);
+}
+
+.product-card .btn-favorite:hover {
+	background: rgba(134, 206, 203, 0.1);
+	border-color: var(--miku-dark);
+	color: var(--miku-dark);
+	transform: scale(1.05);
+}
+
+.product-card .btn-favorite.active {
+	background-color: var(--miku-light);
+	border-color: var(--miku-light);
+	color: white;
+}
+
+.product-card .btn-favorite.active:hover {
+	background-color: var(--miku-dark);
+	border-color: var(--miku-dark);
+}
+
+.product-card .rating {
+	font-size: 0.9rem;
+}
+
+.product-card .stock-info {
+	display: flex;
+	align-items: center;
+}
+
+.btn-group .btn-outline-primary {
+	border-color: var(--miku-light);
+	color: var(--miku-light);
+}
+
+.btn-group .btn-outline-primary:hover {
+	background-color: rgba(134, 206, 203, 0.1);
+	border-color: var(--miku-dark);
+	color: var(--miku-dark);
+}
+
+.btn-group .btn-outline-primary.active {
+	background-color: var(--miku-light) !important;
+	border-color: var(--miku-light) !important;
+	color: white !important;
+	box-shadow: 0 0 10px rgba(134, 206, 203, 0.4);
+}
+
+.btn-group .btn.disabled, 
+.btn-group .btn:disabled {
+	background-color: #e9ecef !important;
+	border-color: #dee2e6 !important;
+	color: #adb5bd !important;
+	cursor: not-allowed;
+	pointer-events: all !important;
+	opacity: 0.6;
+}
+
+.btn-group .btn.active {
+	z-index: 2;
 }
 
 /* ============================================
@@ -905,10 +1063,15 @@ html {
 		height: 150px;
 	}
 	
-	.concert-modal-content .modal-body img.modal-image-style {
+	.concert-modal-content .modal-body img.modal-image-style,
+	.product-modal-content .modal-body img.modal-image-style {
 		max-height: 250px;
 	}
-
+	
+	.product-card .card-img-top {
+		height: 200px;
+	}
+	
 	.article-image {
 		min-height: 200px;
 	}
@@ -947,10 +1110,11 @@ html {
 	}
 	
 	.outfit-modal,
-	.concert-modal-content {
+	.concert-modal-content,
+	.product-modal-content {
 		max-height: calc(100vh - 20px);
 	}
-
+	
 	.filter-wrapper {
 		padding-top: 3.5rem !important;
 	}
