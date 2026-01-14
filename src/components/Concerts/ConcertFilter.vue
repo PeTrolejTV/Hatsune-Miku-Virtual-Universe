@@ -18,7 +18,7 @@
 					v-model="searchQuery" 
 					type="text" 
 					class="form-control bg-light border-start-0" 
-					placeholder="Magical Mirai..."
+					placeholder="Search..."
 				>
 			</div>
 		</div>
@@ -263,3 +263,4 @@ export default {
 	}
 }
 </script>
+
