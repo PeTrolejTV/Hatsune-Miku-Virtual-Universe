@@ -122,25 +122,25 @@
 			<div class="container">
 				<div class="row text-center g-4">
 					<div class="col-md-3 col-6">
-						<div class="stat-item">
+						<div class="stat-item no-border">
 							<h2 class="display-4 fw-bold">{{ stats.concerts }}+</h2>
 							<p class="mb-0">Virtual Concerts</p>
 						</div>
 					</div>
 					<div class="col-md-3 col-6">
-						<div class="stat-item">
+						<div class="stat-item no-border">
 							<h2 class="display-4 fw-bold">{{ stats.products }}+</h2>
 							<p class="mb-0">Merch Items</p>
 						</div>
 					</div>
 					<div class="col-md-3 col-6">
-						<div class="stat-item">
+						<div class="stat-item no-border">
 							<h2 class="display-4 fw-bold">{{ stats.fans }}K+</h2>
 							<p class="mb-0">Global Fans</p>
 						</div>
 					</div>
 					<div class="col-md-3 col-6">
-						<div class="stat-item">
+						<div class="stat-item no-border">
 							<h2 class="display-4 fw-bold">{{ stats.artworks }}+</h2>
 							<p class="mb-0">Fan Artworks</p>
 						</div>
