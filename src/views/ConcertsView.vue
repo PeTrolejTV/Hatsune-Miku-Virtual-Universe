@@ -38,17 +38,17 @@
 			</div>
 		</div>
 		
-		<ConcertDetailModal 
+		<ConcertDetail 
 			v-if="selectedConcert"
 			:concert="selectedConcert" 
-			@close="clearSelectedConcert" 
+			@close="clearSelectedConcert"
 		/>
 	</div>
 </template>
 
 <script>
 import ConcertCard from '@/components/Concerts/ConcertCard.vue'
-import ConcertDetailModal from '@/components/Concerts/ConcertDetail.vue'
+import ConcertDetail from '@/components/Concerts/ConcertDetail.vue'
 import ConcertFilter from '@/components/Concerts/ConcertFilter.vue'
 import { useConcertsStore } from '@/stores/concerts'
 
@@ -56,7 +56,7 @@ export default {
 	name: 'ConcertsView',
 	components: {
 		ConcertCard,
-		ConcertDetailModal,
+		ConcertDetail,
 		ConcertFilter
 	},
 	data() {
@@ -68,8 +68,11 @@ export default {
 		}
 	},
 	computed: {
+		concertsStore() {
+			return useConcertsStore();
+		},
 		allConcerts() {
-			return useConcertsStore().concerts || [];
+			return this.concertsStore.concerts || [];
 		}
 	},
 	watch: {
