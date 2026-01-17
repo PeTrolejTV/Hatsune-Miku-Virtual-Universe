@@ -15,7 +15,7 @@
 				<div class="col-lg-10">
 					<div class="card shadow-sm mb-4 border-0">
 						<div class="card-body p-4">
-							<h5 class="card-title fw-bold mb-4">Cart Summary</h5>
+							<h5 v-if="cartStore.items.length > 0" class="card-title fw-bold mb-4">Cart Summary</h5>
 							
 							<div v-if="cartStore.items.length === 0" class="text-center py-5">
 								<i class="bi bi-cart-x display-1 text-muted opacity-25"></i>
