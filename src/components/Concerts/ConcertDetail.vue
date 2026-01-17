@@ -73,6 +73,8 @@
 
 <script>
 import QuantityControl from '@/components/QuantityControl.vue'
+import { useCartStore } from '@/stores/cart'
+import { useConcertsStore } from '@/stores/concerts'
 
 export default {
 	name: 'ConcertDetail',
@@ -85,13 +87,19 @@ export default {
 			required: true
 		}
 	},
-	emits: ['close', 'add-to-cart'],
+	emits: ['close'],
 	data() {
 		return {
 			amount: 1
 		}
 	},
 	computed: {
+		cartStore() {
+			return useCartStore();
+		},
+		concertsStore() {
+			return useConcertsStore();
+		},
 		remainingCapacity() {
 			if (!this.concert) return 0
 			return Math.max(0, this.concert.ticketsRemaining)
@@ -122,15 +130,18 @@ export default {
 		},
 		addToCartHandler() {
 			if (this.amount > 0 && this.amount <= this.remainingCapacity) {
-				this.$emit('add-to-cart', {
+				this.cartStore.addItem({
 					id: this.concert.id,
 					name: this.concert.title,
 					price: this.concert.price,
-					amount: -this.amount,
+					amount: this.amount,
 					type: 'concert'
-				})
+				});
+
+				this.concertsStore.updateTicketsRemaining(this.concert.id, -this.amount);
+				
+				this.closeAndReset();
 			}
-			//this.closeAndReset()
 		},
 		closeAndReset() {
 			this.amount = 1
