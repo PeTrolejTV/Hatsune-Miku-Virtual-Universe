@@ -68,8 +68,11 @@ export default {
 		}
 	},
 	computed: {
+		merchStore() {
+			return useMerchStore();
+		},
 		allProducts() {
-			return useMerchStore().products || [];
+			return this.merchStore.products || [];
 		}
 	},
 	watch: {
@@ -80,7 +83,6 @@ export default {
 				document.title = this.$route.meta.title || 'Merch Store | Miku Universe';
 			}
 		},
-
 		allProducts: {
 			immediate: true,
 			handler(newVal) {
@@ -109,4 +111,3 @@ export default {
 	}
 }
 </script>
-
