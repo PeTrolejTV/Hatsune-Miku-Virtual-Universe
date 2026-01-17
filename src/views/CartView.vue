@@ -65,10 +65,16 @@
 
 								<div class="mt-4 pt-4 border-top">
 									<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-										<button @click="showConfirmation = true" class="btn btn-outline-danger px-4 rounded-pill mb-3 mb-md-0 shadow-sm">
+										<button 
+											v-if="cartStore.items.length >= 2"
+											@click="showConfirmation = true" 
+											class="btn btn-outline-danger px-4 rounded-pill mb-3 mb-md-0 shadow-sm"
+										>
 											<i class="bi bi-trash-fill me-1"></i> Clear Entire Cart
 										</button>
 										
+										<div v-else></div>
+
 										<div class="text-md-end">
 											<p class="mb-1 text-muted">Total ({{ cartStore.totalItems }} items):</p>
 											<h2 class="text-primary fw-bold mb-3">{{ cartStore.totalPrice.toFixed(2) }}€</h2>
@@ -97,7 +103,7 @@
 						<i class="bi bi-exclamation-triangle display-4"></i>
 					</div>
 					<h5 class="fw-bold mb-2">Empty your cart?</h5>
-					<p class="text-muted">This will return all items back to stock.</p>
+					<p class="text-muted">This will remove all <strong>{{ cartStore.totalItems }} items</strong> from your cart.</p>
 					<div class="d-flex justify-content-center gap-2 mt-4">
 						<button class="btn btn-light border px-4" @click="showConfirmation = false">Cancel</button>
 						<button class="btn btn-danger px-4" @click="handleClearAll">Yes, clear all</button>
