@@ -1,4 +1,5 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { useCartStore } from './cart';
 
 const initialProducts = [
 	{
@@ -52,18 +53,17 @@ const initialProducts = [
 		stock: 0,
 		isNew: false
 	},
-    {
-        id: 5,
-        name: 'Keychain Set',
-        category: 'Accessories',
-        price: 12.99,
-        image: 'images/products/keychain-set.jpg',
-        description: 'Set of 6 acrylic keychains featuring different Miku outfits. Durable and scratch-resistant.',
-        rating: 4,
-        stock: 200,
-        isNew: true
-
-    }, 
+	{
+		id: 5,
+		name: 'Keychain Set',
+		category: 'Accessories',
+		price: 12.99,
+		image: 'images/products/keychain-set.jpg',
+		description: 'Set of 6 acrylic keychains featuring different Miku outfits. Durable and scratch-resistant.',
+		rating: 4,
+		stock: 200,
+		isNew: true
+	}, 
 	{
 		id: 6,
 		name: 'Hoodie Premium',
@@ -82,11 +82,12 @@ const initialProducts = [
 		},
 		isNew: false
 	}
-]
+];
 
 export const useMerchStore = defineStore('merch', {
 	state: () => ({
 		products: initialProducts,
+		isInitialized: false
 	}),
 
 	getters: {
@@ -108,8 +109,28 @@ export const useMerchStore = defineStore('merch', {
 	},
 
 	actions: {
+		initializeStock() {
+			if (this.isInitialized) return;
+			const cartStore = useCartStore();
+			
+			cartStore.items.forEach(item => {
+				if (item.type === 'product') {
+					const product = this.products.find(p => p.id === item.id);
+					if (product) {
+						if (product.category === 'Clothing' && item.size && product.stockBySize) {
+							product.stockBySize[item.size] -= item.amount;
+							if (product.stockBySize[item.size] < 0) product.stockBySize[item.size] = 0;
+						} else {
+							product.stock -= item.amount;
+							if (product.stock < 0) product.stock = 0;
+						}
+					}
+				}
+			});
+			this.isInitialized = true;
+		},
 		updateStock(payload) {
-			const product = this.products.find(p => p.id === payload.id)
+			const product = this.products.find(p => p.id === payload.id);
 			if (product) {
 				if (product.category === 'Clothing' && payload.size && product.stockBySize) {
 					product.stockBySize[payload.size] += payload.amount;
@@ -121,4 +142,4 @@ export const useMerchStore = defineStore('merch', {
 			}
 		}
 	}
-})
+});
