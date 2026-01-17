@@ -1171,6 +1171,66 @@ body.modal-open {
 }
 
 /* ============================================
+	NOT FOUND VIEW STYLES
+	============================================ */
+
+.not-found-view {
+	min-height: 80vh;
+}
+
+.error-card {
+	background-color: #fff;
+	border: 1px solid #e0e0e0;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	transition: transform 0.3s ease-in-out;
+}
+
+.error-card:hover {
+	transform: translateY(-5px);
+}
+
+.text-miku {
+	color: var(--miku-light)
+}
+
+.text-miku-dark {
+	color: var(--miku-dark)
+}
+
+.btn-primary {
+	background-color: var(--miku-light);
+	border-color: var(--miku-light);
+	transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+	background-color: var(--miku-dark);
+	border-color: var(--miku-dark);
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(57, 197, 187, 0.4);
+}
+
+.miku-illustration i {
+	display: inline-block;
+	animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+	50% {
+		transform: scale(1.2);
+		opacity: 0.8;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+}
+
+/* ============================================
 	ANIMATIONS
 	============================================ */
 
