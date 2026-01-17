@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useCartStore } from './cart';
 
 const initialConcerts = [
 	{ 
@@ -72,12 +73,28 @@ const initialConcerts = [
 export const useConcertsStore = defineStore('concerts', {
 	state: () => ({
 		concerts: initialConcerts,
+		isInitialized: false
 	}),
 	getters: {
 		allConcerts: (state) => state.concerts,
 		getConcertById: (state) => (id) => state.concerts.find(c => c.id === id)
 	},
 	actions: {
+		initializeStock() {
+			if (this.isInitialized) return;
+			const cartStore = useCartStore();
+			
+			cartStore.items.forEach(item => {
+				if (item.type === 'concert') {
+					const concert = this.concerts.find(c => c.id === item.id);
+					if (concert) {
+						concert.ticketsRemaining -= item.amount;
+						if (concert.ticketsRemaining < 0) concert.ticketsRemaining = 0;
+					}
+				}
+			});
+			this.isInitialized = true;
+		},
 		updateTicketsRemaining(concertId, amountChange) {
 			const concert = this.concerts.find(c => c.id === concertId);
 			if (concert) {
