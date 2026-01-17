@@ -11,8 +11,17 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item" v-for="item in menuItems" :key="item.path">
-						<a :href="item.path" class="nav-link" :class="{ active: $route.path === item.path }" @click.prevent="navigate(item.path)">
-							<i :class="['bi', item.icon, 'me-1']"></i>{{ item.name }}
+						<a :href="item.path" class="nav-link position-relative" :class="{ active: $route.path === item.path }" @click.prevent="navigate(item.path)">
+							<i :class="['bi', item.icon, 'me-1']"></i>
+							{{ item.name }}
+							
+							<span 
+								v-if="item.name === 'Cart' && cartStore.totalItems > 0" 
+								class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger shadow-sm border border-light"
+								style="font-size: 0.65rem;"
+							>
+								{{ cartStore.totalItems }}
+							</span>
 						</a>
 					</li>
 				</ul>
@@ -22,6 +31,8 @@
 </template>
 
 <script>
+import { useCartStore } from '@/stores/cart'
+
 export default {
 	name: 'NavBar',
 	data() {
@@ -36,6 +47,11 @@ export default {
 				{ name: 'Wishlist', path: '/wishlist', icon: 'bi-heart' },
 				{ name: 'Cart', path: '/cart', icon: 'bi-cart' }
 			]
+		}
+	},
+	computed: {
+		cartStore() {
+			return useCartStore()
 		}
 	},
 	methods: {
