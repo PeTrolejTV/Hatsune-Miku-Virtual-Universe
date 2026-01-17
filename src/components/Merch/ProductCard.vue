@@ -1,157 +1,94 @@
 <template>
-	<div class="cart-view">
-		<div class="container py-5">
-			<div class="text-center mb-5">
-				<h1 class="display-4 fw-bold mb-3">
-					<i class="bi bi-cart me-3"></i>
-					Shopping Cart
-				</h1>
-				<p class="lead text-muted">
-					Review your selected tickets and exclusive Hatsune Miku merchandise before checkout
-				</p>
-			</div>
-
-			<div class="row justify-content-center">
-				<div class="col-lg-10">
-					<div class="card shadow-sm mb-4 border-0">
-						<div class="card-body p-4">
-							<h5 class="card-title fw-bold mb-4">Cart Summary</h5>
-							
-							<div v-if="cartStore.items.length === 0" class="text-center py-5">
-								<i class="bi bi-cart-x display-1 text-muted opacity-25"></i>
-								<h3 class="mt-3 text-secondary">Your cart is empty</h3>
-								<p class="text-muted">Explore our concerts or merch to add items here.</p>
-								<div class="d-flex justify-content-center gap-3 mt-3">
-									<router-link to="/concerts" class="btn btn-outline-primary">
-										Browse Concerts
-									</router-link>
-									<router-link to="/merch" class="btn btn-outline-primary">
-										Browse Merch
-									</router-link>
-								</div>
-							</div>
-							
-							<div v-else>
-								<ul class="list-group list-group-flush mb-4">
-									<li 
-										v-for="item in cartStore.items" 
-										:key="item.uniqueId" 
-										class="list-group-item d-flex justify-content-between align-items-center py-3 px-0 bg-transparent"
-									>
-										<div class="d-flex align-items-center">
-											<div class="cart-icon-wrapper me-3 d-none d-sm-flex">
-												<i :class="item.type === 'concert' ? 'bi bi-ticket-perforated' : 'bi bi-bag-check'" class="fs-4 text-primary"></i>
-											</div>
-											<div>
-												<h6 class="mb-0 fw-bold">{{ item.name }}</h6>
-												<div class="d-flex gap-2 mt-1">
-													<span class="badge bg-light text-dark border small text-capitalize">{{ item.type }}</span>
-													<span v-if="item.size" class="badge bg-info text-white small">Size: {{ item.size }}</span>
-												</div>
-												<div class="text-muted small mt-1">
-													{{ item.amount }}x {{ item.price.toFixed(2) }}€
-												</div>
-											</div>
-										</div>
-										
-										<div class="d-flex align-items-center">
-											<span class="fw-bold me-4 fs-5">{{ (item.amount * item.price).toFixed(2) }}€</span>
-											<button @click="handleRemove(item)" class="btn btn-outline-danger btn-sm rounded-circle">
-												<i class="bi bi-trash"></i>
-											</button>
-										</div>
-									</li>
-								</ul>
-
-								<div class="mt-4 pt-4 border-top">
-									<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-										<button @click="showConfirmation = true" class="btn btn-outline-danger px-4 rounded-pill mb-3 mb-md-0 shadow-sm">
-											<i class="bi bi-trash-fill me-1"></i> Clear Entire Cart
-										</button>
-										
-										<div class="text-md-end">
-											<p class="mb-1 text-muted">Total ({{ cartStore.totalItems }} items):</p>
-											<h2 class="text-primary fw-bold mb-3">{{ cartStore.totalPrice.toFixed(2) }}€</h2>
-											<div class="d-grid d-md-block">
-												<button 
-													class="btn btn-primary btn-lg px-5 shadow-sm rounded-pill"
-													title="Does not work: Implement check out lol"
-												>
-													Checkout <i class="bi bi-arrow-right ms-2"></i>
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+	<div class="card product-card h-100 shadow-sm">
+		<div v-if="product.isNew" class="badge-new">NEW</div>
+		<img :src="product.image" class="card-img-top" :alt="product.name" />
+		
+		<div class="card-body d-flex flex-column">
+			<h5 class="card-title">{{ product.name }}</h5>
+			<p class="text-muted small mb-2"><i class="bi bi-tag me-1"></i>{{ product.category }}</p>
+			<p class="card-text text-muted flex-grow-1">{{ product.description }}</p>
+			
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<span class="h4 text-success mb-0">{{ product.price }}€</span>
+				<div class="rating">
+					<span v-for="star in 5" :key="star">
+						<i class="bi" :class="star <= product.rating ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
+					</span>
 				</div>
 			</div>
-		</div>
-
-		<div v-if="showConfirmation" class="custom-modal-backdrop" @click.self="showConfirmation = false">
-			<div class="custom-modal shadow-lg border-0">
-				<div class="p-4 text-center">
-					<div class="text-danger mb-3">
-						<i class="bi bi-exclamation-triangle display-4"></i>
-					</div>
-					<h5 class="fw-bold mb-2">Empty your cart?</h5>
-					<p class="text-muted">This will return all items back to stock.</p>
-					<div class="d-flex justify-content-center gap-2 mt-4">
-						<button class="btn btn-light border px-4" @click="showConfirmation = false">Cancel</button>
-						<button class="btn btn-danger px-4" @click="handleClearAll">Yes, clear all</button>
-					</div>
-				</div>
+			
+			<div class="stock-info mb-3">
+				<span class="badge" :class="displayStock > 0 ? 'bg-success' : 'bg-danger'">
+					{{ displayStock > 0 ? 'In Stock' : 'Out of Stock' }}
+				</span>
+				<span v-if="displayStock > 0" class="text-muted small ms-2">{{ displayStock }} available</span>
+			</div>
+			
+			<div class="d-flex gap-2 mt-auto">
+				<button 
+					class="btn btn-favorite" 
+					:class="{ active: isFavorite }" 
+					@click="toggleFavorite"
+				>
+					<i class="bi" :class="isFavorite ? 'bi-heart-fill' : 'bi-heart'"></i>
+				</button>
+				<button class="btn btn-primary flex-grow-1" @click="showDetails">
+					<i class="bi bi-eye me-1"></i>Details
+				</button>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import { useCartStore } from '@/stores/cart'
-import { useConcertsStore } from '@/stores/concerts'
-import { useMerchStore } from '@/stores/merch'
-
 export default {
-	name: 'CartView',
+	name: 'ProductCard',
+	props: {
+		product: { 
+			type: Object, 
+			required: true 
+		}
+	},
+	emits: ['view-details', 'favorite-updated'],
 	data() {
 		return {
-			showConfirmation: false
+			isFavorite: false,
+			storageKey: 'favorite_products'
 		}
 	},
 	computed: {
-		cartStore() { return useCartStore() },
-		concertsStore() { return useConcertsStore() },
-		merchStore() { return useMerchStore() }
+		displayStock() {
+			if (this.product.category === 'Clothing' && this.product.stockBySize) {
+				return Object.values(this.product.stockBySize).reduce((a, b) => a + b, 0);
+			}
+			return this.product.stock || 0;
+		}
+	},
+	mounted() {
+		this.checkFavoriteStatus();
 	},
 	methods: {
-		handleRemove(item) {
-			const removedItem = this.cartStore.removeItem(item.uniqueId);
-			if (removedItem) {
-				this.returnToStock(removedItem);
-			}
+		checkFavoriteStatus() {
+			const favorites = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+			this.isFavorite = favorites.includes(this.product.id);
 		},
-		handleClearAll() {
-			const itemsToReturn = [...this.cartStore.items];
-			
-			itemsToReturn.forEach(item => {
-				this.returnToStock(item);
-			});
-			
-			this.cartStore.clearCart();
-			this.showConfirmation = false;
+		showDetails() {
+			this.$emit('view-details', this.product);
 		},
-		returnToStock(item) {
-			if (item.type === 'concert') {
-				this.concertsStore.updateTicketsRemaining(item.id, item.amount);
-			} else if (item.type === 'product') { 
-				this.merchStore.updateStock({
-					id: item.id,
-					amount: item.amount,
-					size: item.size
-				});
+		toggleFavorite() {
+			this.isFavorite = !this.isFavorite;
+			let favorites = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+			
+			if (this.isFavorite) {
+				if (!favorites.includes(this.product.id)) {
+					favorites.push(this.product.id);
+				}
+			} else {
+				favorites = favorites.filter(id => id !== this.product.id);
 			}
+			
+			localStorage.setItem(this.storageKey, JSON.stringify(favorites));
+			this.$emit('favorite-updated');
 		}
 	}
 }
