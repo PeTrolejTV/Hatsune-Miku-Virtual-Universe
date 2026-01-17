@@ -85,6 +85,8 @@
 
 <script>
 import QuantityControl from '@/components/QuantityControl.vue'
+import { useCartStore } from '@/stores/cart'
+import { useMerchStore } from '@/stores/merch'
 
 export default {
 	name: 'ProductDetail',
@@ -97,7 +99,7 @@ export default {
 			required: true 
 		}
 	},
-	emits: ['close', 'add-to-cart'],
+	emits: ['close'],
 	data() {
 		return {
 			amount: 1,
@@ -106,6 +108,12 @@ export default {
 		}
 	},
 	computed: {
+		cartStore() {
+			return useCartStore();
+		},
+		merchStore() {
+			return useMerchStore();
+		},
 		currentStock() {
 			if (!this.product) return 0;
 			if (this.product.category !== 'Clothing') return this.product.stock || 0;
@@ -151,7 +159,7 @@ export default {
 		},
 		addToCartHandler() {
 			if (!this.isAddDisabled) {
-				this.$emit('add-to-cart', {
+				this.cartStore.addItem({
 					id: this.product.id,
 					name: this.product.name,
 					price: this.product.price,
@@ -159,8 +167,15 @@ export default {
 					size: this.selectedSize,
 					type: 'product'
 				});
+
+				this.merchStore.updateStock({
+					id: this.product.id,
+					size: this.selectedSize,
+					amount: -this.amount
+				});
+
+				this.closeAndReset();
 			}
-            //this.closeAndReset()
 		},
 		closeAndReset() {
 			this.amount = 1;
