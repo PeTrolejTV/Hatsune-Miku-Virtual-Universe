@@ -67,11 +67,12 @@
 			</div>
 
 			<div v-if="!hasItems" class="empty-wishlist shadow-sm">
-				<i class="bi bi-heart display-2 opacity-25"></i>
+				<i class="bi bi-heartbreak display-2 opacity-25"></i>
 				<h3 class="mt-3 text-secondary">Your wishlist is empty</h3>
+				<p class="text-muted">Explore our concerts or merch to add items here.</p>
 				<div class="mt-4 d-flex gap-2 justify-content-center">
-					<RouterLink to="/concerts" class="btn btn-miku-outline">Concerts</RouterLink>
-					<RouterLink to="/merch" class="btn btn-miku-outline">Merch Store</RouterLink>
+					<RouterLink to="/concerts" class="btn btn-miku-outline">Browse Concerts</RouterLink>
+					<RouterLink to="/merch" class="btn btn-miku-outline">Browse Merch</RouterLink>
 				</div>
 			</div>
 		</div>
