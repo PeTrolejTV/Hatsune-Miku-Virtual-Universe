@@ -8,6 +8,7 @@ import ConcertsView from '../views/ConcertsView.vue'
 import MerchView from '../views/MerchView.vue'
 import WishlistView from '../views/WishlistView.vue'
 import CartView from '../views/CartView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 const routes = [
 	{ path: '/', name: 'home', component: HomeView, meta: { title: 'Home | Miku Universe' } },
@@ -17,7 +18,9 @@ const routes = [
 	{ path: '/concerts', name: 'concerts', component: ConcertsView, meta: { title: 'Concerts | Miku Universe' } },
 	{ path: '/merch', name: 'merch', component: MerchView, meta: { title: 'Merch | Miku Universe' } },
 	{ path: '/wishlist', name: 'wishlist', component: WishlistView, meta: { title: 'Wishlist | Miku Universe' } },
-	{ path: '/cart', name: 'cart', component: CartView, meta: { title: 'Cart | Miku Universe' } }
+	{ path: '/cart', name: 'cart', component: CartView, meta: { title: 'Cart | Miku Universe' } },
+
+	{ path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundView, meta: { title: '404 Not Found | Miku Universe' } }
 ]
 
 const router = createRouter({
