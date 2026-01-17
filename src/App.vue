@@ -23,11 +23,26 @@
 
 <script>
 import NavBar from './components/NavBar.vue'
+import { useConcertsStore } from '@/stores/concerts'
+import { useMerchStore } from '@/stores/merch'
 
 export default {
 	name: 'App',
 	components: {
 		NavBar
+	},
+	computed: {
+		concertsStore() { return useConcertsStore() },
+		merchStore() { return useMerchStore() }
+	},
+	mounted() {
+		this.initializeStores();
+	},
+	methods: {
+		initializeStores() {
+			this.concertsStore.initializeStock();
+			this.merchStore.initializeStock();
+		}
 	}
 }
 </script>
