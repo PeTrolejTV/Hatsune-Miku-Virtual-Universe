@@ -39,8 +39,10 @@ export const useCartStore = defineStore('cart', {
 		},
 
 		clearCart() {
+			const itemsBeforeClear = [...this.items];
 			this.items = [];
 			this.saveToLocalStorage();
+			return itemsBeforeClear;
 		},
 
 		saveToLocalStorage() {
