@@ -128,18 +128,12 @@
 </template>
 
 <script>
+import { useConcertsStore } from '@/stores/concerts'
+import { useWishlistStore } from '@/stores/wishlist'
+
 export default {
 	name: 'ConcertFilter',
-	props: {
-		concerts: {
-			type: Array,
-			required: true
-		},
-		favoriteIds: {
-			type: Array,
-			default: () => []
-		}
-	},
+	emits: ['update-results'],
 	data() {
 		return {
 			searchQuery: '',
@@ -156,6 +150,15 @@ export default {
 		}
 	},
 	computed: {
+		concertsStore() {
+			return useConcertsStore();
+		},
+		wishlistStore() {
+			return useWishlistStore();
+		},
+		allConcerts() {
+			return this.concertsStore.concerts || [];
+		},
 		rangeStyle() {
 			const range = this.absMaxPrice - this.absMinPrice;
 			if (range === 0) return { left: '0%', right: '0%' };
@@ -164,7 +167,7 @@ export default {
 			return { left: left + '%', right: right + '%' };
 		},
 		filteredResults() {
-			let results = [...this.concerts];
+			let results = [...this.allConcerts];
 			
 			if (this.hideExpired) {
 				const now = new Date();
@@ -176,7 +179,7 @@ export default {
 			}
 
 			if (this.showOnlyFavorites) {
-				results = results.filter(c => this.favoriteIds.includes(c.id));
+				results = results.filter(c => this.wishlistStore.favConcertIds.includes(c.id));
 			}
 
 			if (this.filterPlatform !== 'all') {
@@ -211,7 +214,7 @@ export default {
 		}
 	},
 	watch: {
-		concerts: {
+		allConcerts: {
 			immediate: true,
 			handler() {
 				this.initializePriceLimits();
@@ -226,8 +229,8 @@ export default {
 	},
 	methods: {
 		initializePriceLimits() {
-			if (this.concerts && this.concerts.length > 0) {
-				const prices = this.concerts.map(c => c.price);
+			if (this.allConcerts && this.allConcerts.length > 0) {
+				const prices = this.allConcerts.map(c => c.price);
 				this.absMinPrice = Math.min(...prices);
 				this.absMaxPrice = Math.max(...prices);
 				this.minPriceLimit = this.absMinPrice;
@@ -263,4 +266,3 @@ export default {
 	}
 }
 </script>
-
