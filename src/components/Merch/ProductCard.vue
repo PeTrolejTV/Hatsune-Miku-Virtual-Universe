@@ -32,31 +32,40 @@
 				>
 					<i class="bi" :class="isFavorite ? 'bi-heart-fill' : 'bi-heart'"></i>
 				</button>
-				<button class="btn btn-primary flex-grow-1" @click="showDetails">
+				<button class="btn btn-primary flex-grow-1" @click="showDetail = true">
 					<i class="bi bi-eye me-1"></i>Details
 				</button>
 			</div>
 		</div>
+
+		<ProductDetail 
+			v-if="showDetail" 
+			:product="product" 
+			@close="showDetail = false" 
+		/>
 	</div>
 </template>
 
 <script>
+import ProductDetail from '@/components/Merch/ProductDetail.vue'
+import { useWishlistStore } from '@/stores/wishlist'
+
 export default {
 	name: 'ProductCard',
+	components: { ProductDetail },
 	props: {
-		product: { 
-			type: Object, 
-			required: true 
-		}
+		product: { type: Object, required: true }
 	},
-	emits: ['view-details', 'favorite-updated'],
 	data() {
 		return {
-			isFavorite: false,
-			storageKey: 'favorite_products'
+			showDetail: false
 		}
 	},
 	computed: {
+		wishlistStore() { return useWishlistStore() },
+		isFavorite() {
+			return this.wishlistStore.isProductFavorite(this.product.id)
+		},
 		displayStock() {
 			if (this.product.category === 'Clothing' && this.product.stockBySize) {
 				return Object.values(this.product.stockBySize).reduce((a, b) => a + b, 0);
@@ -64,31 +73,9 @@ export default {
 			return this.product.stock || 0;
 		}
 	},
-	mounted() {
-		this.checkFavoriteStatus();
-	},
 	methods: {
-		checkFavoriteStatus() {
-			const favorites = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
-			this.isFavorite = favorites.includes(this.product.id);
-		},
-		showDetails() {
-			this.$emit('view-details', this.product);
-		},
 		toggleFavorite() {
-			this.isFavorite = !this.isFavorite;
-			let favorites = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
-			
-			if (this.isFavorite) {
-				if (!favorites.includes(this.product.id)) {
-					favorites.push(this.product.id);
-				}
-			} else {
-				favorites = favorites.filter(id => id !== this.product.id);
-			}
-			
-			localStorage.setItem(this.storageKey, JSON.stringify(favorites));
-			this.$emit('favorite-updated');
+			this.wishlistStore.toggleProductFavorite(this.product.id);
 		}
 	}
 }
