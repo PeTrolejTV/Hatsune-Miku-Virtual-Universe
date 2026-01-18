@@ -9,7 +9,7 @@
 				<p class="lead text-muted">Your curated collection of favorite items</p>
 			</div>
 
-			<div v-if="hasItems" class="wishlist-stats-box mb-5 shadow-sm">
+			<div v-if="wishlistStore.hasItems" class="wishlist-stats-box mb-5 shadow-sm">
 				<div class="row text-center g-0">
 					<div class="col-6 col-md-3 stat-item">
 						<span class="label">Total Items</span>
@@ -17,21 +17,21 @@
 					</div>
 					<div class="col-6 col-md-3 stat-item">
 						<span class="label">Concerts</span>
-						<span class="value">{{ totalConcertsValue }}€</span>
+						<span class="value">{{ stats.concertsValue }}€</span>
 					</div>
 					<div class="col-6 col-md-3 stat-item">
 						<span class="label">Merchandise</span>
-						<span class="value">{{ totalProductsValue }}€</span>
+						<span class="value">{{ stats.productsValue }}€</span>
 					</div>
 					<div class="col-6 col-md-3 stat-item no-border">
 						<span class="label">Total Price</span>
-						<span class="value highlight">{{ totalValue }}€</span>
+						<span class="value highlight">{{ totalPrice }}€</span>
 					</div>
 				</div>
 			</div>
 
 			<div v-if="favoriteConcerts.length > 0" class="wishlist-section mb-5">
-				<div class="section-header d-flex justify-content-between align-items-center mb-4  bg-white shadow-sm py-2 pe-4 sub-title-box">
+				<div class="section-header d-flex justify-content-between align-items-center mb-4 bg-white shadow-sm py-2 pe-4 sub-title-box">
 					<h3 class="mb-0">Favorite Concerts</h3>
 					<button class="btn-clear-wishlist" @click="showConfirm('concerts')">
 						<i class="bi bi-trash me-1"></i> Clear All
@@ -39,17 +39,13 @@
 				</div>
 				<div class="row g-4">
 					<div v-for="concert in favoriteConcerts" :key="'c-' + concert.id" class="col-lg-4 col-md-6">
-						<ConcertCard 
-							:concert="concert" 
-							@show-details="openItem(concert, 'concert')"
-							@favorite-updated="loadFavorites"
-						/>
+						<ConcertCard :concert="concert" />
 					</div>
 				</div>
 			</div>
 
 			<div v-if="favoriteProducts.length > 0" class="wishlist-section mb-5">
-				<div class="section-header d-flex justify-content-between align-items-center mb-4  bg-white shadow-sm py-2 pe-4 sub-title-box">
+				<div class="section-header d-flex justify-content-between align-items-center mb-4 bg-white shadow-sm py-2 pe-4 sub-title-box">
 					<h3 class="mb-0">Favorite Products</h3>
 					<button class="btn-clear-wishlist" @click="showConfirm('products')">
 						<i class="bi bi-trash me-1"></i> Clear All
@@ -57,16 +53,12 @@
 				</div>
 				<div class="row g-4">
 					<div v-for="product in favoriteProducts" :key="'p-' + product.id" class="col-lg-3 col-md-4 col-sm-6">
-						<ProductCard 
-							:product="product" 
-							@view-details="openItem(product, 'product')"
-							@favorite-updated="loadFavorites"
-						/>
+						<ProductCard :product="product" />
 					</div>
 				</div>
 			</div>
 
-			<div v-if="!hasItems" class="empty-wishlist shadow-sm">
+			<div v-if="!wishlistStore.hasItems" class="empty-wishlist shadow-sm">
 				<i class="bi bi-heartbreak display-2 opacity-25"></i>
 				<h3 class="mt-3 text-secondary">Your wishlist is empty</h3>
 				<p class="text-muted">Explore our concerts or merch to add items here.</p>
@@ -76,18 +68,6 @@
 				</div>
 			</div>
 		</div>
-
-		<ConcertDetail
-			v-if="selectedItem && itemType === 'concert'"
-			:concert="selectedItem"
-			@close="closeItem"
-		/>
-
-		<ProductDetail
-			v-if="selectedItem && itemType === 'product'"
-			:product="selectedItem"
-			@close="closeItem"
-		/>
 
 		<div v-if="confirmVisible" class="confirm-modal-backdrop" @click.self="cancelClear">
 			<div class="confirm-modal shadow-lg">
@@ -104,10 +84,8 @@
 
 <script>
 import ConcertCard from '@/components/Concerts/ConcertCard.vue'
-import ConcertDetail from '@/components/Concerts/ConcertDetail.vue'
 import ProductCard from '@/components/Merch/ProductCard.vue'
-import ProductDetail from '@/components/Merch/ProductDetail.vue'
-
+import { useWishlistStore } from '@/stores/wishlist'
 import { useConcertsStore } from '@/stores/concerts'
 import { useMerchStore } from '@/stores/merch'
 
@@ -115,18 +93,12 @@ export default {
 	name: 'WishlistView',
 	components: {
 		ConcertCard,
-		ConcertDetail,
-		ProductCard,
-		ProductDetail
+		ProductCard
 	},
 	data() {
 		return {
-			selectedItem: null,
-			itemType: null,
-			favConcertIds: [],
-			favProductIds: [],
 			confirmVisible: false,
-			confirmType: '' 
+			confirmType: ''
 		}
 	},
 	watch: {
@@ -139,47 +111,36 @@ export default {
 		}
 	},
 	computed: {
+		wishlistStore() { return useWishlistStore() },
 		concertsStore() { return useConcertsStore() },
 		merchStore() { return useMerchStore() },
-
+		
 		favoriteConcerts() {
-			return this.concertsStore.concerts.filter(c => this.favConcertIds.includes(c.id))
+			return this.concertsStore.concerts.filter(c => 
+				this.wishlistStore.favConcertIds.includes(c.id)
+			)
 		},
 		favoriteProducts() {
-			return this.merchStore.products.filter(p => this.favProductIds.includes(p.id))
-		},
-		hasItems() {
-			return this.favoriteConcerts.length > 0 || this.favoriteProducts.length > 0
+			return this.merchStore.allProducts.filter(p => 
+				this.wishlistStore.favProductIds.includes(p.id)
+			)
 		},
 		totalCount() {
 			return this.favoriteConcerts.length + this.favoriteProducts.length
 		},
-		totalConcertsValue() {
-			return this.favoriteConcerts.reduce((acc, c) => acc + c.price, 0).toFixed(2)
+		stats() {
+			const cVal = this.favoriteConcerts.reduce((acc, c) => acc + c.price, 0)
+			const pVal = this.favoriteProducts.reduce((acc, p) => acc + p.price, 0)
+			return {
+				concertsValue: cVal.toFixed(2),
+				productsValue: pVal.toFixed(2)
+			}
 		},
-		totalProductsValue() {
-			return this.favoriteProducts.reduce((acc, p) => acc + p.price, 0).toFixed(2)
-		},
-		totalValue() {
-			return (parseFloat(this.totalConcertsValue) + parseFloat(this.totalProductsValue)).toFixed(2)
+		totalPrice() {
+			return (parseFloat(this.stats.concertsValue) + parseFloat(this.stats.productsValue)).toFixed(2)
 		}
 	},
-	mounted() {
-		this.loadFavorites()
-	},
 	methods: {
-		loadFavorites() {
-			this.favConcertIds = JSON.parse(localStorage.getItem('miku_favorite_concerts') || '[]')
-			this.favProductIds = JSON.parse(localStorage.getItem('favorite_products') || '[]')
-		},
-		openItem(item, type) {
-			this.selectedItem = item
-			this.itemType = type
-		},
-		closeItem() {
-			this.selectedItem = null
-			this.itemType = null
-		},
 		showConfirm(type) {
 			this.confirmType = type
 			this.confirmVisible = true
@@ -188,9 +149,7 @@ export default {
 			this.confirmVisible = false
 		},
 		confirmClear() {
-			const key = this.confirmType === 'concerts' ? 'miku_favorite_concerts' : 'favorite_products'
-			localStorage.setItem(key, '[]')
-			this.loadFavorites()
+			this.wishlistStore.clearSection(this.confirmType)
 			this.confirmVisible = false
 		}
 	}
