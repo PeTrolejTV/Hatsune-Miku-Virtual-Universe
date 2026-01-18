@@ -42,14 +42,11 @@
 </template>
 
 <script>
+import { outfitsData } from '@/data/outfits.js'
+
 export default {
 	name: 'OutfitFilter',
-	props: {
-		allOutfits: {
-			type: Array,
-			required: true
-		}
-	},
+	emits: ['update-results'],
 	data() {
 		return {
 			searchQuery: '',
@@ -58,6 +55,9 @@ export default {
 		}
 	},
 	computed: {
+		allOutfits() {
+			return outfitsData;
+		},
 		uniqueYears() {
 			const years = [...new Set(this.allOutfits.map(o => o.year))];
 			return years.sort((a, b) => b - a);
@@ -100,5 +100,4 @@ export default {
 		}
 	}
 }
-
 </script>
