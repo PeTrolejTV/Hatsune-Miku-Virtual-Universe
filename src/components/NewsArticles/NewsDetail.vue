@@ -13,7 +13,7 @@
 			<span><i class="bi bi-person-circle me-1"></i>{{ article.author }}</span>
 		</div>
 
-		<img :src="article.image" :alt="article.title" class="full-article-image mb-5" />
+		<img :src="article.image" :alt="article.title" class="full-article-image mb-5 w-100 rounded-4 shadow" />
 
 		<div class="article-content-body lead">
 			<p v-for="(paragraph, index) in formattedParagraphs" :key="index" class="mb-4">
@@ -45,9 +45,7 @@ export default {
 	computed: {
 		formattedParagraphs() {
 			if (!this.article.content) return [];
-			
 			const sentences = this.article.content.match(/[^\.!\?]+[\.!\?]+/g) || [this.article.content];
-			
 			const paragraphs = [];
 			const sentencesPerParagraph = 3;
 			
@@ -55,7 +53,6 @@ export default {
 				const chunk = sentences.slice(i, i + sentencesPerParagraph).join(' ');
 				paragraphs.push(chunk.trim());
 			}
-			
 			return paragraphs;
 		}
 	},
