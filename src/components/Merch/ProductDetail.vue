@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import QuantityControl from '@/components/QuantityControl.vue'
+import QuantityControl from '@/components/Common/QuantityControl.vue'
 import { useCartStore } from '@/stores/cart'
 import { useMerchStore } from '@/stores/merch'
 
