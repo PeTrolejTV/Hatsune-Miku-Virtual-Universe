@@ -108,7 +108,6 @@ html {
 }
 
 .nav-link {
-	margin: 1 0.5rem;
 	padding: 0.5rem 1rem;
 	border-radius: 8px;
 	transition: all 0.3s ease;
@@ -1197,19 +1196,6 @@ body.modal-open {
 	color: var(--miku-dark)
 }
 
-.btn-primary {
-	background-color: var(--miku-light);
-	border-color: var(--miku-light);
-	transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-	background-color: var(--miku-dark);
-	border-color: var(--miku-dark);
-	transform: translateY(-2px);
-	box-shadow: 0 5px 15px rgba(57, 197, 187, 0.4);
-}
-
 .miku-illustration i {
 	display: inline-block;
 	animation: pulse 2s infinite ease-in-out;
@@ -1228,6 +1214,50 @@ body.modal-open {
 		transform: scale(1);
 		opacity: 0.5;
 	}
+}
+
+/* ============================================
+	FANART VIEW STYLES
+	============================================ */
+
+.fanart-view {
+	min-height: 80vh;
+}
+
+/* ============================================
+	WORK IN PROGRESS STYLES
+	============================================ */
+
+.wip-container {
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	transition: transform 0.3s ease;
+}
+
+.wip-container:hover {
+	transform: translateY(-5px);
+}
+
+.text-miku-primary {
+	color: var(--miku-light);
+}
+
+.bg-miku {
+	background-color: var(--miku-light);
+}
+
+.btn-primary:hover {
+	background-color: var(--miku-dark);
+	border-color: var(--miku-dark);
+}
+
+.wip-icon-wrapper i {
+	display: inline-block;
+	animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-15px); }
 }
 
 /* ============================================
