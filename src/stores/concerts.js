@@ -80,17 +80,26 @@ export const useConcertsStore = defineStore('concerts', {
 		getConcertById: (state) => (id) => state.concerts.find(c => c.id === id)
 	},
 	actions: {
+		purchaseTickets(concert, amount) {
+			const cartStore = useCartStore();
+
+			cartStore.addItem({
+				id: concert.id,
+				name: concert.title,
+				price: concert.price,
+				amount: amount,
+				type: 'concert'
+			});
+
+			this.updateTicketsRemaining(concert.id, -amount);
+		},
 		initializeStock() {
 			if (this.isInitialized) return;
 			const cartStore = useCartStore();
 			
 			cartStore.items.forEach(item => {
 				if (item.type === 'concert') {
-					const concert = this.concerts.find(c => c.id === item.id);
-					if (concert) {
-						concert.ticketsRemaining -= item.amount;
-						if (concert.ticketsRemaining < 0) concert.ticketsRemaining = 0;
-					}
+					this.updateTicketsRemaining(item.id, -item.amount);
 				}
 			});
 			this.isInitialized = true;
@@ -98,10 +107,7 @@ export const useConcertsStore = defineStore('concerts', {
 		updateTicketsRemaining(concertId, amountChange) {
 			const concert = this.concerts.find(c => c.id === concertId);
 			if (concert) {
-				concert.ticketsRemaining += amountChange;
-				if (concert.ticketsRemaining < 0) {
-					concert.ticketsRemaining = 0;
-				}
+				concert.ticketsRemaining = Math.max(0, concert.ticketsRemaining + amountChange);
 			}
 		}
 	}
