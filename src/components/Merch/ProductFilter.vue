@@ -130,12 +130,11 @@
 </template>
 
 <script>
+import { useMerchStore } from '@/stores/merch'
+import { useWishlistStore } from '@/stores/wishlist'
+
 export default {
 	name: 'ProductFilter',
-	props: {
-		products: { type: Array, required: true },
-		favoriteIds: { type: Array, default: () => [] }
-	},
 	data() {
 		return {
 			searchQuery: '',
@@ -143,120 +142,117 @@ export default {
 			sortKey: 'name',
 			sortOrder: 'asc',
 			minPriceLimit: 0,
-			maxPriceLimit: 1000,
+			maxPriceLimit: 2000,
 			absMinPrice: 0,
-			absMaxPrice: 1000,
+			absMaxPrice: 2000,
 			hideSoldOut: true,
 			showOnlyFavorites: false
 		}
 	},
 	computed: {
+		merchStore() { return useMerchStore() },
+		wishlistStore() { return useWishlistStore() },
 		rangeStyle() {
-			const range = this.absMaxPrice - this.absMinPrice;
-			if (range === 0) return { left: '0%', right: '0%' };
-			const left = ((this.minPriceLimit - this.absMinPrice) / range) * 100;
-			const right = 100 - ((this.maxPriceLimit - this.absMinPrice) / range) * 100;
-			return { left: left + '%', right: right + '%' };
+			const range = this.absMaxPrice - this.absMinPrice
+			if (range === 0) return { left: '0%', right: '0%' }
+			const left = ((this.minPriceLimit - this.absMinPrice) / range) * 100
+			const right = 100 - ((this.maxPriceLimit - this.absMinPrice) / range) * 100
+			return { left: left + '%', right: right + '%' }
 		},
 		filteredResults() {
-			let results = [...this.products];
+			let results = [...this.merchStore.products]
 			
 			if (this.showOnlyFavorites) {
-				results = results.filter(p => this.favoriteIds.includes(p.id));
+				results = results.filter(p => this.wishlistStore.favProductIds.includes(p.id))
 			}
 
 			if (this.filterCategory !== 'all') {
-				results = results.filter(p => p.category === this.filterCategory);
+				results = results.filter(p => p.category === this.filterCategory)
 			}
 			
 			if (this.searchQuery) {
-				const query = this.searchQuery.toLowerCase();
+				const query = this.searchQuery.toLowerCase()
 				results = results.filter(p => 
 					p.name.toLowerCase().includes(query) ||
 					p.description.toLowerCase().includes(query)
-				);
+				)
 			}
 			
-			results = results.filter(p => p.price >= this.minPriceLimit && p.price <= this.maxPriceLimit);
+			results = results.filter(p => p.price >= this.minPriceLimit && p.price <= this.maxPriceLimit)
 			
 			if (this.hideSoldOut) {
 				results = results.filter(p => {
 					const stock = p.category === 'Clothing' && p.stockBySize 
 						? Object.values(p.stockBySize).reduce((a, b) => a + b, 0) 
-						: p.stock;
-					return stock > 0;
-				});
+						: p.stock
+					return stock > 0
+				})
 			}
 			
 			results.sort((a, b) => {
-				let modifier = this.sortOrder === 'asc' ? 1 : -1;
-				
-				if (this.sortKey === 'name') return a.name.localeCompare(b.name) * modifier;
-				if (this.sortKey === 'rating') return (a.rating - b.rating) * modifier;
-				
+				let modifier = this.sortOrder === 'asc' ? 1 : -1
+				if (this.sortKey === 'name') return a.name.localeCompare(b.name) * modifier
+				if (this.sortKey === 'rating') return (a.rating - b.rating) * modifier
 				if (this.sortKey === 'releaseDate') {
 					if (this.sortOrder === 'desc') {
-						if (a.isNew !== b.isNew) {
-							return a.isNew ? -1 : 1;
-						}
-						return b.id - a.id;
+						if (a.isNew !== b.isNew) return a.isNew ? -1 : 1
+						return b.id - a.id
 					} else {
-						if (a.isNew !== b.isNew) {
-							return a.isNew ? 1 : -1;
-						}
-						return a.id - b.id;
+						if (a.isNew !== b.isNew) return a.isNew ? 1 : -1
+						return a.id - b.id
 					}
 				}
-				return 0;
-			});
+				return 0
+			})
 			
-			return results;
+			return results
 		}
 	},
 	watch: {
-		products: {
+		'merchStore.products': {
 			immediate: true,
-			handler() { this.initializePriceLimits(); }
+			handler() { this.initializePriceLimits() }
 		},
 		filteredResults: {
 			immediate: true,
-			handler(newVal) { this.$emit('filter-updated', newVal); }
+			handler(newVal) { this.$emit('filter-updated', newVal) }
 		}
 	},
 	methods: {
 		initializePriceLimits() {
-			if (this.products && this.products.length > 0) {
-				const prices = this.products.map(p => p.price);
-				this.absMinPrice = Math.floor(Math.min(...prices));
-				this.absMaxPrice = Math.ceil(Math.max(...prices));
-				this.minPriceLimit = this.absMinPrice;
-				this.maxPriceLimit = this.absMaxPrice;
+			const products = this.merchStore.products
+			if (products && products.length > 0) {
+				const prices = products.map(p => p.price)
+				this.absMinPrice = Math.floor(Math.min(...prices))
+				this.absMaxPrice = Math.ceil(Math.max(...prices))
+				this.minPriceLimit = this.absMinPrice
+				this.maxPriceLimit = this.absMaxPrice
 			}
 		},
 		validateRange() {
 			if (this.minPriceLimit > this.maxPriceLimit) {
-				const temp = this.minPriceLimit;
-				this.minPriceLimit = this.maxPriceLimit;
-				this.maxPriceLimit = temp;
+				const temp = this.minPriceLimit
+				this.minPriceLimit = this.maxPriceLimit
+				this.maxPriceLimit = temp
 			}
 		},
 		toggleSort(key) {
 			if (this.sortKey === key) {
-				this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+				this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'
 			} else {
-				this.sortKey = key;
-				this.sortOrder = key === 'name' ? 'asc' : 'desc';
+				this.sortKey = key
+				this.sortOrder = key === 'name' ? 'asc' : 'desc'
 			}
 		},
 		resetFilters() {
-			this.searchQuery = '';
-			this.filterCategory = 'all';
-			this.sortKey = 'name';
-			this.sortOrder = 'asc';
-			this.minPriceLimit = this.absMinPrice;
-			this.maxPriceLimit = this.absMaxPrice;
-			this.hideSoldOut = true;
-			this.showOnlyFavorites = false;
+			this.searchQuery = ''
+			this.filterCategory = 'all'
+			this.sortKey = 'name'
+			this.sortOrder = 'asc'
+			this.minPriceLimit = this.absMinPrice
+			this.maxPriceLimit = this.absMaxPrice
+			this.hideSoldOut = true
+			this.showOnlyFavorites = false
 		}
 	}
 }
