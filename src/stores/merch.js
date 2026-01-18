@@ -109,36 +109,39 @@ export const useMerchStore = defineStore('merch', {
 	},
 
 	actions: {
+		purchaseProduct(product, amount, size) {
+			const cartStore = useCartStore();
+
+			cartStore.addItem({
+				id: product.id,
+				name: product.name,
+				price: product.price,
+				amount: amount,
+				size: size,
+				type: 'product'
+			});
+
+			this.updateStock(product.id, -amount, size);
+		},
 		initializeStock() {
 			if (this.isInitialized) return;
 			const cartStore = useCartStore();
 			
 			cartStore.items.forEach(item => {
 				if (item.type === 'product') {
-					const product = this.products.find(p => p.id === item.id);
-					if (product) {
-						if (product.category === 'Clothing' && item.size && product.stockBySize) {
-							product.stockBySize[item.size] -= item.amount;
-							if (product.stockBySize[item.size] < 0) product.stockBySize[item.size] = 0;
-						} else {
-							product.stock -= item.amount;
-							if (product.stock < 0) product.stock = 0;
-						}
-					}
+					this.updateStock(item.id, -item.amount, item.size);
 				}
 			});
 			this.isInitialized = true;
 		},
-		updateStock(payload) {
-			const product = this.products.find(p => p.id === payload.id);
-			if (product) {
-				if (product.category === 'Clothing' && payload.size && product.stockBySize) {
-					product.stockBySize[payload.size] += payload.amount;
-					if (product.stockBySize[payload.size] < 0) product.stockBySize[payload.size] = 0;
-				} else {
-					product.stock += payload.amount;
-					if (product.stock < 0) product.stock = 0;
-				}
+		updateStock(productId, amountChange, size = null) {
+			const product = this.products.find(p => p.id === productId);
+			if (!product) return;
+
+			if (product.category === 'Clothing' && size && product.stockBySize) {
+				product.stockBySize[size] = Math.max(0, (product.stockBySize[size] || 0) + amountChange);
+			} else {
+				product.stock = Math.max(0, (product.stock || 0) + amountChange);
 			}
 		}
 	}
