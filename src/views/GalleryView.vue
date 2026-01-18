@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		
-		<OutfitDetailModal
+		<OutfitDetail
 			v-if="selectedOutfit"
 			:outfit="selectedOutfit"
 			@close="selectedOutfit = null"
@@ -40,7 +40,7 @@
 
 <script>
 import OutfitCard from '@/components/Gallery/OutfitCard.vue'
-import OutfitDetailModal from '@/components/Gallery/OutfitDetail.vue'
+import OutfitDetail from '@/components/Gallery/OutfitDetail.vue'
 import OutfitFilter from '@/components/Gallery/OutfitFilter.vue'
 import { outfitsData } from '@/data/outfits.js'
 
@@ -48,7 +48,7 @@ export default {
 	name: 'GalleryView',
 	components: { 
 		OutfitCard, 
-		OutfitDetailModal,
+		OutfitDetail,
 		OutfitFilter
 	},
 	data() {
