@@ -9,9 +9,7 @@
 			</div>
 
 			<OutfitFilter 
-				:all-outfits="outfits" 
 				@update-results="setFilteredOutfits"
-				ref="filterRef"
 			/>
 
 			<div class="row g-4" v-if="displayOutfits.length > 0">
@@ -20,7 +18,7 @@
 					:key="outfit.id"
 					class="col-lg-3 col-md-4 col-sm-6"
 				>
-					<OutfitCard :outfit="outfit" @outfit-click="viewOutfit" />
+					<OutfitCard :outfit="outfit" />
 				</div>
 			</div>
 
@@ -29,50 +27,30 @@
 				<h3 class="mt-3 text-secondary">No outfits found.</h3>
 			</div>
 		</div>
-		
-		<OutfitDetail
-			v-if="selectedOutfit"
-			:outfit="selectedOutfit"
-			@close="selectedOutfit = null"
-		/>
 	</div>
 </template>
 
 <script>
 import OutfitCard from '@/components/Gallery/OutfitCard.vue'
-import OutfitDetail from '@/components/Gallery/OutfitDetail.vue'
 import OutfitFilter from '@/components/Gallery/OutfitFilter.vue'
-import { outfitsData } from '@/data/outfits.js'
 
 export default {
 	name: 'GalleryView',
 	components: { 
 		OutfitCard, 
-		OutfitDetail,
 		OutfitFilter
 	},
 	data() {
 		return {
-			outfits: outfitsData,
-			displayOutfits: [],
-			selectedOutfit: null
+			displayOutfits: []
 		}
 	},
-	watch: {
-		selectedOutfit(newVal) {
-			if (newVal) {
-				document.title = `Gallery Outfit - ${newVal.name} | Miku Universe`;
-			} else {
-				document.title = this.$route.meta.title || 'Gallery | Miku Universe';
-			}
-		}
+	mounted() {
+		document.title = 'Gallery | Miku Universe';
 	},
 	methods: {
 		setFilteredOutfits(results) {
 			this.displayOutfits = results;
-		},
-		viewOutfit(outfit) { 
-			this.selectedOutfit = outfit 
 		}
 	}
 }
