@@ -79,10 +79,7 @@
 											<p class="mb-1 text-muted">Total ({{ cartStore.totalItems }} items):</p>
 											<h2 class="text-primary fw-bold mb-3">{{ cartStore.totalPrice.toFixed(2) }}€</h2>
 											<div class="d-grid d-md-block">
-												<button 
-													class="btn btn-primary btn-lg px-5 shadow-sm rounded-pill"
-													title="Does not work: Implement check out lol"
-												>
+												<button class="btn btn-primary btn-lg px-5 shadow-sm rounded-pill">
 													Checkout <i class="bi bi-arrow-right ms-2"></i>
 												</button>
 											</div>
@@ -139,24 +136,15 @@ export default {
 			}
 		},
 		handleClearAll() {
-			const itemsToReturn = [...this.cartStore.items];
-			
-			itemsToReturn.forEach(item => {
-				this.returnToStock(item);
-			});
-			
-			this.cartStore.clearCart();
+			const itemsToReturn = this.cartStore.clearCart();
+			itemsToReturn.forEach(item => this.returnToStock(item));
 			this.showConfirmation = false;
 		},
 		returnToStock(item) {
 			if (item.type === 'concert') {
 				this.concertsStore.updateTicketsRemaining(item.id, item.amount);
-			} else if (item.type === 'product') { 
-				this.merchStore.updateStock({
-					id: item.id,
-					amount: item.amount,
-					size: item.size
-				});
+			} else if (item.type === 'product') {
+				this.merchStore.updateStock(item.id, item.amount, item.size);
 			}
 		}
 	}
