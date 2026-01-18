@@ -12,10 +12,8 @@
 			</div>
 			
 			<ConcertFilter 
-				:concerts="allConcerts" 
 				:favorite-ids="favoriteIds"
 				@update-results="setFilteredConcerts"
-				ref="concertFilter"
 			/>
 			
 			<div v-if="displayConcerts.length > 0" class="row g-4">
@@ -26,7 +24,6 @@
 				>
 					<ConcertCard 
 						:concert="concert"
-						@show-details="showConcertDetails"
 						@favorite-updated="refreshFavorites"
 					/>
 				</div>
@@ -37,55 +34,29 @@
 				<h3 class="mt-3 text-secondary">No concerts found.</h3>
 			</div>
 		</div>
-		
-		<ConcertDetail 
-			v-if="selectedConcert"
-			:concert="selectedConcert" 
-			@close="clearSelectedConcert"
-		/>
 	</div>
 </template>
 
 <script>
 import ConcertCard from '@/components/Concerts/ConcertCard.vue'
-import ConcertDetail from '@/components/Concerts/ConcertDetail.vue'
 import ConcertFilter from '@/components/Concerts/ConcertFilter.vue'
-import { useConcertsStore } from '@/stores/concerts'
 
 export default {
 	name: 'ConcertsView',
 	components: {
 		ConcertCard,
-		ConcertDetail,
 		ConcertFilter
 	},
 	data() {
 		return {
 			displayConcerts: [],
-			selectedConcert: null,
 			favoriteIds: [],
 			storageKey: 'miku_favorite_concerts'
 		}
 	},
-	computed: {
-		concertsStore() {
-			return useConcertsStore();
-		},
-		allConcerts() {
-			return this.concertsStore.concerts || [];
-		}
-	},
-	watch: {
-		selectedConcert(newVal) {
-			if (newVal) {
-				document.title = `Concerts - ${newVal.title} | Miku Universe`;
-			} else {
-				document.title = this.$route.meta.title || 'Concerts | Miku Universe';
-			}
-		}
-	},
 	mounted() {
 		this.refreshFavorites();
+		document.title = 'Concerts | Miku Universe';
 	},
 	methods: {
 		setFilteredConcerts(results) {
@@ -93,12 +64,6 @@ export default {
 		},
 		refreshFavorites() {
 			this.favoriteIds = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
-		},
-		showConcertDetails(concert) {
-			this.selectedConcert = concert;
-		},
-		clearSelectedConcert() {
-			this.selectedConcert = null;
 		}
 	}
 }
