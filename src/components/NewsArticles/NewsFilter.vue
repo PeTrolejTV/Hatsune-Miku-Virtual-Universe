@@ -79,16 +79,13 @@
 </template>
 
 <script>
+import { newsData } from '@/data/news.js'
+
 export default {
 	name: 'NewsFilter',
-	props: {
-		allArticles: {
-			type: Array,
-			required: true
-		}
-	},
 	data() {
 		return {
+			allArticles: newsData,
 			searchQuery: '',
 			filterCategory: 'all',
 			filterYear: 'all',
@@ -189,5 +186,4 @@ export default {
 		}
 	}
 }
-
 </script>
