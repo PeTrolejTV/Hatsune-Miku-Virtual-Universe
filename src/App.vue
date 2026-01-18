@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue'
+import NavBar from './components/Common/NavBar.vue'
 import { useConcertsStore } from '@/stores/concerts'
 import { useMerchStore } from '@/stores/merch'
 
